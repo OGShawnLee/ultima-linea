@@ -1,28 +1,32 @@
 <script lang="ts">
 	import Badge from '$lib/components/Badge.svelte';
+	import Picture from '$lib/components/Picture.svelte';
+	import Time from '$lib/components/Time.svelte';
 
 	export let background = true;
-	export let variant: 'horizontal' | 'vertical-medium' | 'vertical-large' = 'vertical-medium';
-  export let hero = false;
+	export let variant: 'horizontal' | 'vertical-small' | 'vertical-medium' | 'vertical-large' =
+		'vertical-medium';
+	export let hero = false;
 </script>
 
 {#if variant === 'horizontal'}
 	<article class="md:grid grid-cols-2">
-		<div class:order-2={hero}>
-			<img
-				class="h-full object-cover aspect-ratio-16:10 {background
-					? 'rounded-t-lg md:(rounded-0 rounded-l-xl)'
-					: 'rounded-xl'}"
-				src="https://utfs.io/f/a2906261-9a3f-409f-90ab-c2492e37422c-asg3le.jpeg"
-				alt="placeholder"
-			/>
-		</div>
-		<div class="{hero ? 'order-1 p-6 md:(p-8 pl-0)' : 'p-6 md:p-8'} flex flex-col justify-center gap-4 md:gap-6 rounded-r-xl" class:bg-ground-1={background}>
+		<Picture
+			class={hero ? 'order-2' : undefined}
+			src="https://utfs.io/f/a2906261-9a3f-409f-90ab-c2492e37422c-asg3le.jpeg"
+			rounded={background ? 'lt-md:rounded-t-xl md:(rounded-l-xl)' : 'rounded-xl'}
+		/>
+		<div
+			class="{hero
+				? 'order-1 p-6 md:(p-8 pl-0)'
+				: 'p-6 md:p-8'} flex flex-col justify-center gap-4 md:gap-6 rounded-r-xl"
+			class:bg-ground-1={background}
+		>
 			<div class="flex items-center gap-4 flex-wrap">
-				<Badge badge="Nacional" />
+				<Badge badge="Nacional" earth />
 				<Badge badge="Política" />
 			</div>
-			<a class="hover:text-sky-400 text-white" href="/">
+			<a class="hover:text-sky-400 text-white" href="/article">
 				<h3 class="{hero ? 'font-extrabold lg:text-4xl' : 'font-semibold'} text-2xl md:text-3xl">
 					El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD.
 					2017 el año en que AMLO los llamó, pero ellos no le hicieron caso
@@ -33,32 +37,36 @@
 				emotivamente y sin rencores hacia el partido que alguna vez figuro como la casa del actual
 				presidente, Andres Manuel López Obrador.
 			</p>
-			<div>
-				<time class="text-xs text-lesser font-semibold" datetime="">
-					23 de septiembre del 2024
-				</time>
-			</div>
+			<Time />
 		</div>
+	</article>
+{:else if variant === 'vertical-small'}
+	<article class="p-6 grid gap-4">
+		<div class="flex items-center gap-4 flex-wrap">
+			<Badge badge="Nacional" earth />
+			<Badge badge="Política" />
+		</div>
+		<a class="hover:text-sky-400 text-white" href="/article">
+			<h3 class="text-xl font-semibold">
+				El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017
+				el año en que AMLO los llamó, pero ellos no le hicieron caso
+			</h3>
+		</a>
+		<Time />
 	</article>
 {:else}
 	<article>
-		<div>
-			<img
-				class="h-full object-cover aspect-ratio-3:2 {background ? 'rounded-t-xl' : 'rounded-xl'}"
-				src="https://utfs.io/f/6843c429-5103-48ae-a99f-833082026e41-57p9e8.jpeg"
-				alt="placeholder"
-			/>
-		</div>
+		<Picture rounded={background ? "rounded-t-xl" : "rounded-xl"} />
 		<div
 			class="{variant === 'vertical-large'
-				? 'p-6 md:p-8 gap-4 md:gap-6'
+				? 'p-6 gap-4 md:(p-8 gap-6)'
 				: 'p-6 gap-4'} grid bg-ground-1 rounded-b-xl"
 		>
 			<div class="flex items-center gap-4 flex-wrap">
-				<Badge badge="Nacional" />
+				<Badge badge="Nacional" earth />
 				<Badge badge="Política" />
 			</div>
-			<a class="hover:text-sky-400 text-white" href="/">
+			<a class="hover:text-sky-400 text-white" href="/article">
 				<h3
 					class="{variant === 'vertical-large' ? 'text-xl lg:text-3xl' : 'text-xl'} font-semibold"
 				>
@@ -73,11 +81,7 @@
 					presidente, Andres Manuel López Obrador.
 				</p>
 			{/if}
-			<div>
-				<time class="text-xs text-lesser font-semibold" datetime="">
-					23 de septiembre del 2024
-				</time>
-			</div>
+			<Time />
 		</div>
 	</article>
 {/if}

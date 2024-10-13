@@ -1,6 +1,6 @@
 <script>
   import Auth from "$lib/layouts/Auth.svelte";
-  import { AtSign, Key } from "lucide-svelte";
+  import { AtSign, Lock } from "lucide-svelte";
 </script>
 
 <Auth variant="sign-in" let:Input>
@@ -13,7 +13,7 @@
   <Input
     label="Contraseña"
     type="password"
-    icon={Key}
+    icon={Lock}
     placeholder="Introduzca su contraseña"
   />
 </Auth>
