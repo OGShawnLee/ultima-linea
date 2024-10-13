@@ -6,8 +6,8 @@
 	<title>Ultima Linea</title>
 </svelte:head>
 
-<main class="mt-20 w-full mx-auto max-w-1500px">
-	<section class="py-16 px-4 sm:px-8 flex flex-col gap-8">
+<main class="mt-20 container">
+	<section class="py-12 md:py-16 container--padding flex flex-col gap-8">
 		<header class="sr-only section-header">
 			<h2 class="heading-2">Avenida Principal</h2>
 		</header>
@@ -20,7 +20,7 @@
       </div>
     </div>
 	</section>
-	<section class="py-16 px-4 sm:px-8 flex flex-col gap-8 bg-ground-1-light dark:bg-ground-1">
+	<section class="py-12 md:py-16 container--padding flex flex-col gap-8 bg-ground-1-light dark:bg-ground-1 2xl:rounded-xl">
     <header class="section-header">
       <h2 class="heading-2">Política</h2>
 		</header>
@@ -36,7 +36,7 @@
       </div>
     </div>
 	</section>
-	<section class="py-16 px-4 sm:px-8 flex flex-col gap-8">
+	<section class="py-12 md:py-16 container--padding flex flex-col gap-8">
     <header class="section-header">
       <h2 class="heading-2">Crimen</h2>
 		</header>

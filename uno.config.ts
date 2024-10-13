@@ -5,10 +5,13 @@ export default defineConfig({
   shortcuts: {
     "button": "flex items-center justify-center gap-2",
     "button--lesser": "text-summit-light dark:text-summit bg-ground-3-light dark:bg-ground-3 hover:(bg-ground-4-light dark:bg-ground-4) border-focus-effect",
+    "button--icon": "text-summit-light dark:text-summit hover:text-lesser border-focus-effect",
     "border-focus-effect": "", // we will handle focus states later on
-    "section-header": "h-10",
+    "section-header": "min-h-10",
     "heading-1": "text-3xl md:text-4xl text-summit-light dark:text-summit font-bold",
     "heading-2": "text-3xl text-summit-light dark:text-summit tracking-tight font-bold",
+    "container": "w-full max-w-1538px mx-auto",
+    "container--padding": "px-4 md:px-8",
   },
   theme: {
     colors: {

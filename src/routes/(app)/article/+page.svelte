@@ -13,10 +13,11 @@
 </script>
 
 <svelte:head>
-	<title
-		>El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017 el
-		año en que AMLO los llamó, pero ellos no le hicieron caso</title
-	>
+	<title>
+		El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017 el
+		año en que AMLO los llamó, pero ellos no le hicieron caso
+	</title>
+	<meta name="description" content="Después de muchos años, el PRD ha perdido su registro a nivel nacional." />
 	<meta
 		name="og:title"
 		content="El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017 el año en que AMLO los llamó, pero ellos no le hicieron caso"
@@ -37,9 +38,9 @@
 	/>
 </svelte:head>
 
-<main class="mt-20 w-full mx-auto max-w-1500px">
-	<div class="px-4 py-16 md:px-8">
-		<div class="grid xl:grid-cols-12 items-start gap-y-24 lg:gap-x-8 xl:gap-x-12">
+<main class="mt-20 container">
+	<div class="container--padding py-12 md:py-16">
+		<div class="grid xl:grid-cols-12 items-start gap-y-12 lg:gap-x-8 xl:gap-x-12">
 			<article class="xl:col-span-8 grid gap-12">
 				<header class="md:px-16 grid gap-6">
 					<div class="flex items-center gap-4 flex-wrap">
@@ -132,7 +133,7 @@
 			</section>
 		</div>
 	</div>
-	<section class="py-16 px-4 sm:px-8 flex flex-col gap-8 bg-ground-1-light dark:bg-ground-1">
+	<section class="container--padding py-12 md:py-16 flex flex-col gap-8 bg-ground-1-light dark:bg-ground-1 2xl:rounded-xl">
 		<header class="section-header">
 			<h2 class="heading-2">Noticias Relacionadas</h2>
 		</header>
