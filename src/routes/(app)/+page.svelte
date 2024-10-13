@@ -1,5 +1,5 @@
 <script>
-  import { Card } from '$lib/components';
+  import { Card, More } from '$lib/components';
 </script>
 
 <svelte:head>
@@ -19,6 +19,7 @@
         {/each}
       </div>
     </div>
+    <More category="Avenida Principal" />
 	</section>
 	<section class="py-12 md:py-16 container--padding flex flex-col gap-8 bg-ground-1-light dark:bg-ground-1 2xl:rounded-xl">
     <header class="section-header">
@@ -31,10 +32,11 @@
       </div>
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">
         {#each { length: 6 } as _}
-         <Card background={false} />
+        <Card background={false} />
         {/each}
       </div>
     </div>
+    <More category="Política" />
 	</section>
 	<section class="py-12 md:py-16 container--padding flex flex-col gap-8">
     <header class="section-header">
@@ -48,5 +50,6 @@
         {/each}
       </div>
     </div>
+    <More category="Crimen" />
 	</section>
 </main>
