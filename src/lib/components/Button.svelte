@@ -10,14 +10,14 @@
 
 {#if href}
 	<a class="button button--lesser {size} rounded-lg" class:px-4={size === 'h-10'} {href}>
-		<svelte:component this={icon} />
+		<svelte:component this={icon} strokeWidth={1.5} />
 		{#if text}
 			<span> {text} </span>
 		{/if}
 	</a>
 {:else}
 	<button class="button button--lesser {size} rounded-lg" class:px-4={size === 'h-10'} on:click>
-		<svelte:component this={icon} />
+		<svelte:component this={icon} strokeWidth={1.5} />
 		{#if text}
 			<span> {text} </span>
 		{/if}

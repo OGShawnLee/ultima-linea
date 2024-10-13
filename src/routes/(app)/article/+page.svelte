@@ -1,24 +1,40 @@
 <script>
-	import { Bookmark, Share2 as Share } from "lucide-svelte";
+	import { Bookmark, Share2 as Share } from 'lucide-svelte';
 	import { Button, Card, Badge, Picture, Time } from '$lib/components';
 
 	function handleShare() {
 		navigator.share({
-			title: "El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017 el año en que AMLO los llamó, pero ellos no le hicieron caso",
-			text: "Mira la noticia en Ultima Linea.",
+			title:
+				'El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017 el año en que AMLO los llamó, pero ellos no le hicieron caso',
+			text: 'Mira la noticia en Ultima Linea.',
 			url: window.location.href
 		});
 	}
 </script>
 
 <svelte:head>
-	<title>El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017 el año en que AMLO los llamó, pero ellos no le hicieron caso</title>
-	<meta name="og:title" content="El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017 el año en que AMLO los llamó, pero ellos no le hicieron caso" />
-	<meta name="og:image" content='https://utfs.io/f/6843c429-5103-48ae-a99f-833082026e41-57p9e8.jpeg' />
+	<title
+		>El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017 el
+		año en que AMLO los llamó, pero ellos no le hicieron caso</title
+	>
+	<meta
+		name="og:title"
+		content="El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017 el año en que AMLO los llamó, pero ellos no le hicieron caso"
+	/>
+	<meta
+		name="og:image"
+		content="https://utfs.io/f/6843c429-5103-48ae-a99f-833082026e41-57p9e8.jpeg"
+	/>
 	<meta name="twitter:card" content="summary" />
-	<meta name="twitter:title" content="El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017 el año en que AMLO los llamó, pero ellos no le hicieron caso" />
+	<meta
+		name="twitter:title"
+		content="El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017 el año en que AMLO los llamó, pero ellos no le hicieron caso"
+	/>
 	<meta name="twitter:description" content="Mira la noticia en Ultima Linea." />
-	<meta name="twitter:image" content='https://utfs.io/f/6843c429-5103-48ae-a99f-833082026e41-57p9e8.jpeg' />
+	<meta
+		name="twitter:image"
+		content="https://utfs.io/f/6843c429-5103-48ae-a99f-833082026e41-57p9e8.jpeg"
+	/>
 </svelte:head>
 
 <main class="mt-20 w-full mx-auto max-w-1500px">
@@ -30,7 +46,7 @@
 						<Badge badge="Nacional" earth />
 						<Badge badge="Política" />
 					</div>
-					<h1 class="text-3xl md:text-4xl text-white font-bold">
+					<h1 class="heading-1">
 						El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD.
 						2017 el año en que AMLO los llamó, pero ellos no le hicieron caso
 					</h1>
@@ -42,7 +58,7 @@
 							casa del actual presidente, Andres Manuel López Obrador.
 						</p>
 					</div>
-					<div class="flex items-center justify-end gap-4">
+					<div class="flex items-center justify-end gap-2">
 						<Button icon={Bookmark} size="size-10" />
 						<Button icon={Share} text="Compartir" on:click={handleShare} />
 					</div>
@@ -50,14 +66,14 @@
 				<Picture label />
 				<div class="grid gap-4">
 					<p class="md:px-16 leading-loose">
-						<strong class="text-white">
+						<strong class="text-summit-light dark:text-summit">
 							En septiembre de 2012, después de perder las elecciones presidenciales frente a
 							Enrique Peña Nieto, López Obrador anunció su salida del Partido de la Revolución
 							Democrática. Ese año, en un mitin realizado en el Zócalo de la CDMX declaro:
 						</strong>
 					</p>
 					<blockquote
-						class="my-4 md:mx-6 px-10 py-4 bg-ground-1 border-l-4 border-ground-4 leading-loose"
+						class="my-4 md:mx-6 px-10 py-4 bg-ground-1-light dark:bg-ground-1 border-l-4 border-ground-4 rounded-r-xl leading-loose"
 					>
 						<p>
 							No se trata de una ruptura, me despido en los mejores términos. Agradezco, en
@@ -69,7 +85,7 @@
 						</p>
 					</blockquote>
 					<p class="md:px-16 leading-loose">
-						<strong class="text-white">
+						<strong class="text-summit-light dark:text-summit">
 							Ya para entonces López Obrador venía conformando un movimiento que se llamaría Morena,
 							Movimiento de Regeneración Nacional.
 						</strong>
@@ -82,7 +98,7 @@
 						unieran a Morena en las elecciones del Estado de México; pero el PRD no hizo caso:
 					</p>
 					<blockquote
-						class="my-4 md:mx-6 px-10 py-4 bg-ground-1 border-l-4 border-ground-4 leading-loose"
+						class="my-4 md:mx-6 px-10 py-4 bg-ground-1-light dark:bg-ground-1 border-l-4 border-ground-4 rounded-r-xl leading-loose"
 					>
 						<p>
 							Aquí en el Estado de México lo digo con toda claridad, con franqueza: si en la entidad
@@ -92,7 +108,7 @@
 						</p>
 					</blockquote>
 					<p class="md:px-16 leading-loose">
-						<strong class="text-white">
+						<strong class="text-summit-light dark:text-summit">
 							Hoy muchos perredistas han de estar lamentando no haber hecho caso a ese llamado.
 						</strong>
 					</p>
@@ -116,12 +132,12 @@
 			</section>
 		</div>
 	</div>
-	<section class="py-16 px-4 sm:px-8 flex flex-col gap-8 bg-ground-1">
+	<section class="py-16 px-4 sm:px-8 flex flex-col gap-8 bg-ground-1-light dark:bg-ground-1">
 		<header class="section-header">
 			<h2 class="heading-2">Noticias Relacionadas</h2>
 		</header>
 		<div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">
-			{#each { length: 9 } as _}
+			{#each { length: 12 } as _}
 				<Card background={false} />
 			{/each}
 		</div>

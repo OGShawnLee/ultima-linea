@@ -20,7 +20,7 @@
       </div>
     </div>
 	</section>
-	<section class="py-16 px-4 sm:px-8 flex flex-col gap-8 bg-ground-1">
+	<section class="py-16 px-4 sm:px-8 flex flex-col gap-8 bg-ground-1-light dark:bg-ground-1">
     <header class="section-header">
       <h2 class="heading-2">Política</h2>
 		</header>

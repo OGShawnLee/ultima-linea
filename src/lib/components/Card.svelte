@@ -19,14 +19,13 @@
 		<div
 			class="{hero
 				? 'order-1 p-6 md:(p-8 pl-0)'
-				: 'p-6 md:p-8'} flex flex-col justify-center gap-4 md:gap-6 rounded-r-xl"
-			class:bg-ground-1={background}
+				: 'p-6 md:p-8'} flex flex-col justify-center gap-4 md:gap-6 {background ? "bg-ground-1-light dark:bg-ground-1" : "bg-transparent"} rounded-r-xl"
 		>
 			<div class="flex items-center gap-4 flex-wrap">
 				<Badge badge="Nacional" earth />
 				<Badge badge="Política" />
 			</div>
-			<a class="hover:text-sky-400 text-white" href="/article">
+			<a class="hover:(text-marque-light dark:text-marque) text-summit-light dark:text-summit" href="/article">
 				<h3 class="{hero ? 'font-extrabold lg:text-4xl' : 'font-semibold'} text-2xl md:text-3xl">
 					El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD.
 					2017 el año en que AMLO los llamó, pero ellos no le hicieron caso
@@ -46,7 +45,7 @@
 			<Badge badge="Nacional" earth />
 			<Badge badge="Política" />
 		</div>
-		<a class="hover:text-sky-400 text-white" href="/article">
+		<a class="hover:(text-marque-light dark:text-marque) text-summit-light dark:text-summit" href="/article">
 			<h3 class="text-xl font-semibold">
 				El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017
 				el año en que AMLO los llamó, pero ellos no le hicieron caso
@@ -60,13 +59,13 @@
 		<div
 			class="{variant === 'vertical-large'
 				? 'p-6 gap-4 md:(p-8 gap-6)'
-				: 'p-6 gap-4'} grid bg-ground-1 rounded-b-xl"
+				: 'p-6 gap-4'} grid bg-ground-1-light dark:bg-ground-1 rounded-b-xl"
 		>
 			<div class="flex items-center gap-4 flex-wrap">
 				<Badge badge="Nacional" earth />
 				<Badge badge="Política" />
 			</div>
-			<a class="hover:text-sky-400 text-white" href="/article">
+			<a class="hover:(text-marque-light dark:text-marque) text-summit-light dark:text-summit" href="/article">
 				<h3
 					class="{variant === 'vertical-large' ? 'text-xl lg:text-3xl' : 'text-xl'} font-semibold"
 				>

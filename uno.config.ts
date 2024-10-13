@@ -1,24 +1,33 @@
 import { defineConfig } from "unocss/vite";
-import { presetUno, transformerDirectives, transformerVariantGroup } from "unocss"
+import { presetUno, presetWebFonts, transformerDirectives, transformerVariantGroup } from "unocss"
 
 export default defineConfig({
   shortcuts: {
     "button": "flex items-center justify-center gap-2",
-    "button--lesser": "text-white bg-ground-3 hover:bg-ground-4 border-focus-effect",
+    "button--lesser": "text-summit-light dark:text-summit bg-ground-3-light dark:bg-ground-3 hover:(bg-ground-4-light dark:bg-ground-4) border-focus-effect",
     "border-focus-effect": "", // we will handle focus states later on
     "section-header": "h-10",
-    "heading-2": "text-3xl text-white tracking-tight font-bold",
+    "heading-1": "text-3xl md:text-4xl text-summit-light dark:text-summit font-bold",
+    "heading-2": "text-3xl text-summit-light dark:text-summit tracking-tight font-bold",
   },
   theme: {
     colors: {
       "ground-0": "#000000",
+      "ground-0-light": "#F5F5F5",
       "ground-1": "#0A0A0A",
+      "ground-1-light": "#FFFFFF",
       "ground-2": "#171717",
       "ground-3": "#262626",
+      "ground-3-light": "#D4D4D4",
       "ground-4": "#525252",
+      "ground-4-light": "#A3A3A3",
       "common": "#A3A3A3",
+      "common-light": "#525252",
       "lesser": "#737373",
       "marque": "#38BDF8",
+      "marque-light": "#0284C7",
+      "summit": "#FFFFFF",
+      "summit-light": "#000000",
     },
     fontFamily: {
       "geist": "Geist, sans-serif"
@@ -29,6 +38,12 @@ export default defineConfig({
     transformerVariantGroup(),
   ],
   presets: [
-    presetUno()
+    presetUno(),
+    presetWebFonts({
+      provider: "fontshare",
+      fonts: {
+        "satoshi": "Satoshi",
+      }
+    })
   ]
 })
