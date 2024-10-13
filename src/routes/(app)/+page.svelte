@@ -14,7 +14,7 @@
     <div class="grid gap-8 md:gap-16">
       <Card variant="horizontal" background={false} hero />
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">
-        {#each { length: 6 } as index (index)}
+        {#each { length: 6 } as _}
           <Card />
         {/each}
       </div>
@@ -30,7 +30,7 @@
         <Card variant="vertical-large" background={false} />
       </div>
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">
-        {#each { length: 6 } as index (index)}
+        {#each { length: 6 } as _}
          <Card background={false} />
         {/each}
       </div>
@@ -43,7 +43,7 @@
     <div class="grid gap-8 md:gap-16">
       <Card variant="horizontal" />
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">
-        {#each { length: 6 } as index (index)}
+        {#each { length: 6 } as _}
           <Card />
         {/each}
       </div>

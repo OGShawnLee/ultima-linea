@@ -3,7 +3,9 @@ import { presetUno, transformerDirectives, transformerVariantGroup } from "unocs
 
 export default defineConfig({
   shortcuts: {
-    "button": "outline-none border-transparent border-2 hover:bg-ground-4 focus:border-white",
+    "button": "flex items-center",
+    "button--lesser": "bg-ground-3 hover:bg-ground-4 border-focus-effect",
+    "border-focus-effect": "", // we will handle focus states later on
   },
   theme: {
     colors: {
