@@ -17,14 +17,17 @@
 		"@sveltejs/vite-plugin-svelte": "^3.0.0",
 		"@unocss/reset": "^0.63.4",
 		"bits-ui": "^0.21.16",
+		"formsnap": "^1.0.1",
 		"lucide-svelte": "^0.452.0",
 		"mode-watcher": "^0.4.1",
 		"prettier": "^3.1.1",
 		"prettier-plugin-svelte": "^3.1.2",
 		"svelte": "^4.2.7",
 		"svelte-check": "^4.0.0",
+		"sveltekit-superforms": "^2.19.1",
 		"typescript": "^5.0.0",
 		"unocss": "^0.63.4",
+		"valibot": "^0.42.1",
 		"vite": "^5.0.3"
 	},
 	"type": "module"
