@@ -8,6 +8,9 @@ importers:
 
   .:
     devDependencies:
+      '@edgedb/generate':
+        specifier: ^0.5.6
+        version: 0.5.6(edgedb@1.5.12)
       '@sveltejs/adapter-auto':
         specifier: ^3.0.0
         version: 3.2.5(@sveltejs/kit@2.7.0(@sveltejs/vite-plugin-svelte@3.1.2(svelte@4.2.19)(vite@5.4.8))(svelte@4.2.19)(vite@5.4.8))
@@ -84,6 +87,13 @@ packages:
   '@babel/runtime@7.25.7':
     resolution: {integrity: sha512-FjoyLe754PMiYsFaN5C94ttGiOmBNYTf6pLr4xXHAT5uctHb092PBszndLDR5XA/jghQvn4n7JMHl7dmTgbm9w==}
     engines: {node: '>=6.9.0'}
+
+  '@edgedb/generate@0.5.6':
+    resolution: {integrity: sha512-Nmd4ibgN3M7qxxHsOyB9NERp03449BfV+W7CWCpIE/tcvBr19GynoT5yI3k55k5NKzzstATwKtV+wVHXiOgizw==}
+    engines: {node: '>= 18.0.0'}
+    hasBin: true
+    peerDependencies:
+      edgedb: ^1.5.10
 
   '@esbuild/aix-ppc64@0.21.5':
     resolution: {integrity: sha512-1SDgH6ZSPTlggy1yI6+Dbkiz8xzpHJEVAlF/AM1tHPLsf5STom9rwtjE4hKAF20FfXXNTFqEYXyJNWh1GiZedQ==}
@@ -388,6 +398,9 @@ packages:
 
   '@hapi/topo@5.1.0':
     resolution: {integrity: sha512-foQZKJig7Ob0BMAYBfcJk8d77QtOe7Wo4ox7ff1lQYoNNAb6jwcY1ncdoy2e9wQZzvNy7ODZCYJkK8kzmcAnAg==}
+
+  '@iarna/toml@2.2.5':
+    resolution: {integrity: sha512-trnsAYxU3xnS1gPHPyU961coFyLkh4gAD/0zQ5mymY4yOZ+CYvsPqUbOFSw0aDM4y0tV7tiFxL/1XfXPNC6IPg==}
 
   '@iconify/types@2.0.0':
     resolution: {integrity: sha512-+wluvCrRhXrhyOmRDJ3q8mux9JkKy5SJ/v8ol2tu4FVjyYvtEzkc/3pK15ET6RKg4b4w4BmTk1+gsCUhf21Ykg==}
@@ -1296,6 +1309,14 @@ snapshots:
       regenerator-runtime: 0.14.1
     optional: true
 
+  '@edgedb/generate@0.5.6(edgedb@1.5.12)':
+    dependencies:
+      '@iarna/toml': 2.2.5
+      debug: 4.3.7
+      edgedb: 1.5.12
+    transitivePeerDependencies:
+      - supports-color
+
   '@esbuild/aix-ppc64@0.21.5':
     optional: true
 
@@ -1467,6 +1488,8 @@ snapshots:
     dependencies:
       '@hapi/hoek': 9.3.0
     optional: true
+
+  '@iarna/toml@2.2.5': {}
 
   '@iconify/types@2.0.0': {}
 
