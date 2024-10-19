@@ -1,6 +1,6 @@
 <script>
 	import { Bookmark, Share2 as Share } from 'lucide-svelte';
-	import { Button, Card, Badge, Picture, Time } from '$lib/components';
+	import { Button, Card, Badge, Main, Picture, Time } from '$lib/components';
 
 	function handleShare() {
 		navigator.share({
@@ -38,7 +38,7 @@
 	/>
 </svelte:head>
 
-<main class="mt-20 container">
+<Main>
 	<div class="container--padding py-12 md:py-16">
 		<div class="grid xl:grid-cols-12 items-start gap-y-12 lg:gap-x-8 xl:gap-x-12">
 			<article class="xl:col-span-8 grid gap-12">
@@ -51,7 +51,13 @@
 						El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD.
 						2017 el año en que AMLO los llamó, pero ellos no le hicieron caso
 					</h1>
-					<Time />
+					<div>
+						<p class="text-xs">
+							Por
+							<a class="font-semibold hover:(text-marque-light dark:text-marque)" href="/author">Luis Donaldo Ortiz García</a> 
+						</p>
+						<Time />
+					</div>
 					<div>
 						<p>
 							Después de muchos años, el PRD ha perdido su registro a nivel nacional. Obrador se
@@ -143,4 +149,4 @@
 			{/each}
 		</div>
 	</section>
-</main>
+</Main>
