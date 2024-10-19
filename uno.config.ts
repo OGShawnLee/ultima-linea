@@ -9,7 +9,7 @@ export default defineConfig({
     "border-focus-effect": "", // we will handle focus states later on
     "section-header": "min-h-10",
     "heading-1": "text-3xl md:text-4xl text-summit-light dark:text-summit font-bold",
-    "heading-2": "text-3xl text-summit-light dark:text-summit tracking-tight font-bold",
+    "heading-2": "text-2xl text-summit-light dark:text-summit tracking-tight font-bold",
     "container": "w-full max-w-1538px mx-auto",
     "container--padding": "px-4 md:px-8",
   },
