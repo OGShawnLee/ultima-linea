@@ -1,6 +1,6 @@
-import auth from "@auth";
-import { SignInSchema } from "@schema/user";
-import { findUserByEmail, hasPasswordMatch } from "@db/user";
+import auth from "@auth/server";
+import { SignInSchema } from "@auth/schema";
+import { findUserByEmail, hasPasswordMatch } from "@user/server";
 import { fail, setError, superValidate } from "sveltekit-superforms";
 import { valibot } from "sveltekit-superforms/adapters"
 import { redirect } from "@sveltejs/kit";

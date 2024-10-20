@@ -1,6 +1,6 @@
 <script>
-	import SocialMedia from './SocialMedia.svelte';
 	import { Card, Main, Text, Time } from '@components';
+	import { SocialMedia } from '@user/components';
 </script>
 
 <svelte:head>

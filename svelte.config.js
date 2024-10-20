@@ -13,13 +13,13 @@ const config = {
 		// See https://kit.svelte.dev/docs/adapters for more information about adapters.
 		adapter: adapter(),
 		alias: {
-			"@auth": "src/lib/server/auth",
+			"@auth": "src/lib/features/auth",
 			"@components": "src/lib/components",
 			"@layout": "src/lib/layout",
-			"@schema": "src/lib/schema",
 			"@state": "src/lib/state",
 			"@db": "src/lib/server/db",
 			"@interfaces": "src/lib/interfaces",
+			"@user": "src/lib/features/user",
 		}
 	}
 };

@@ -1,4 +1,4 @@
-import auth from "@auth";
+import auth from "@auth/server";
 
 export async function load(event) {
 	const currentUser = await auth.findCurrentUser(event.cookies);

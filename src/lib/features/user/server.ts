@@ -1,6 +1,6 @@
 import type { User } from "@interfaces";
-import type { SignUpData } from "@schema/user";
-import auth from "@auth";
+import type { SignUpData } from "@auth/schema";
+import auth from "@auth/server";
 import e, { getClient } from "@db";
 import { useAwait } from "$lib";
 

@@ -1,7 +1,7 @@
-import auth from "@auth";
+import auth from "@auth/server";
 import { ConstraintViolationError } from "edgedb";
-import { SignUpSchema } from "@schema/user";
-import { createUser } from "@db/user";
+import { SignUpSchema } from "@auth/schema";
+import { createUser } from "@user/server";
 import { fail, setError, superValidate } from "sveltekit-superforms";
 import { valibot } from "sveltekit-superforms/adapters"
 import { error, redirect } from "@sveltejs/kit";

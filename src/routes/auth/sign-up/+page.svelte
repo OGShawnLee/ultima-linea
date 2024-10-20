@@ -1,6 +1,6 @@
 <script>
 	import { Auth } from '@layout';
-	import { SignUpSchema } from '@schema/user';
+	import { SignUpSchema } from '@auth/schema';
 	import { AtSign, Lock, Mail, UserCircle } from 'lucide-svelte';
 	import { superForm } from 'sveltekit-superforms';
 	import { valibotClient } from 'sveltekit-superforms/adapters';

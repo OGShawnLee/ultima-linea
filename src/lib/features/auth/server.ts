@@ -1,8 +1,7 @@
-import type { AuthToken } from "@schema/user";
-import { type CurrentUser, findCurrentUser } from "@db/user";
-import createAuthClient from "./mini-auth";
+import { type AuthToken, AuthTokenSchema } from "@auth/schema";
+import { type CurrentUser, findCurrentUser } from "@user/server";
+import createAuthClient from "$lib/server/mini-auth";
 import { ACCESS_TOKEN, AUTH_COOKIE } from "$env/static/private";
-import { AuthTokenSchema } from "@schema/user";
 import { safeParse } from "valibot";
 
 export default createAuthClient<AuthToken, CurrentUser>({

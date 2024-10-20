@@ -26,10 +26,7 @@ const PasswordSchema = v.pipe(
 );
 
 export const AuthTokenSchema = v.object({
-  id: v.pipe(
-    v.string(),
-    v.uuid(),
-  )
+  id: v.pipe(v.string(), v.uuid())
 }); 
 export const SignInSchema = v.object({
   email: EmailSchema,

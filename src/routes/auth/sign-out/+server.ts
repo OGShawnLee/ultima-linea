@@ -1,4 +1,4 @@
-import auth from "@auth";
+import auth from "@auth/server";
 
 export function GET(event) {
 	auth.deleteAuthCookie(event.cookies);
