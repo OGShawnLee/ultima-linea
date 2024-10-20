@@ -2,6 +2,12 @@
 	import 'virtual:uno.css';
 	import '@unocss/reset/tailwind.css';
 	import { ModeWatcher } from "mode-watcher";
+	import { UserState } from "@state";
+
+	export let data;
+
+	const currentUser = UserState.mount(data.currentUser);
+	$: currentUser.set(data.currentUser);
 </script>
 
 <ModeWatcher defaultMode="system" />
