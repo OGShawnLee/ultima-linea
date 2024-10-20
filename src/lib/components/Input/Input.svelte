@@ -20,7 +20,7 @@
 		<label class="text-summit-light dark:text-summit text-sm font-normal" for={id}>{label}</label>
 	</div>
 	<input
-		class="h-10 w-full px-4 bg-ground-0-light dark:bg-ground-0 border border-ground-3-light dark:border-ground-3 rounded-xl placeholder-text-middle placeholder-font-normal font-bold text-sm text-summit-light dark:text-summit"
+		class="h-10 w-full px-4 bg-transparent outline-none border-b border-ground-3-light dark:border-ground-3 focus:(border-marque-light dark:border-marque) font-bold text-summit-light dark:text-summit placeholder-font-normal placeholder-middle placeholder-text-sm"
 		name={id}
 		{type}
 		{placeholder}
