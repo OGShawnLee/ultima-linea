@@ -1,5 +1,6 @@
 <script>
-  import { Card, More } from '$lib/components';
+  import { More } from '@components';
+  import { Card } from "@article/components";
 </script>
 
 <svelte:head>
@@ -12,10 +13,10 @@
 			<h2 class="heading-2">Avenida Principal</h2>
 		</header>
     <div class="grid gap-8 md:gap-16">
-      <Card variant="horizontal" background={false} hero />
+      <Card variant="hero" background={false} />
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">
         {#each { length: 6 } as _}
-          <Card />
+          <Card variant="medium" background />
         {/each}
       </div>
     </div>
@@ -27,12 +28,12 @@
 		</header>
     <div class="grid gap-8 md:gap-16">
       <div class="grid md:grid-cols-2 gap-8">
-        <Card variant="vertical-large" background={false} />
-        <Card variant="vertical-large" background={false} />
+        <Card variant="large" background={false} />
+        <Card variant="large" background={false} />
       </div>
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">
         {#each { length: 6 } as _}
-        <Card background={false} />
+          <Card variant="medium" background={false} />
         {/each}
       </div>
     </div>
@@ -43,10 +44,10 @@
       <h2 class="heading-2">Crimen</h2>
 		</header>
     <div class="grid gap-8 md:gap-16">
-      <Card variant="horizontal" />
+      <Card variant="horizontal" background />
       <div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">
         {#each { length: 6 } as _}
-          <Card />
+          <Card variant="medium" background />
         {/each}
       </div>
     </div>

@@ -1,5 +1,6 @@
 <script>
-	import { Card, Main, Text, Time } from '@components';
+	import { Main, Text, Time } from '@components';
+	import { Card } from '@article/components';
 	import { SocialMedia } from '@user/components';
 </script>
 
@@ -100,10 +101,10 @@
 			<h2 class="heading-2">Noticias Destacadas</h2>
 		</header>
 		<div class="grid gap-8 md:gap-16">
-			<Card variant="horizontal" background={false} />
+			<Card variant="horizontal" />
 			<div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">
 				{#each { length: 6 } as _}
-					<Card background={false} />
+					<Card variant="medium" />
 				{/each}
 			</div>
 		</div>

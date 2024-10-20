@@ -1,5 +1,6 @@
 <script>
-	import { Button, Card } from '$lib/components';
+	import { Button } from '@components';
+	import { Card } from '@article/components';
 	import { Search } from 'lucide-svelte';
 </script>
 
@@ -40,7 +41,7 @@
 		</header>
 		<div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">
 			{#each { length: 6 } as _}
-				<Card background={false} />
+				<Card variant="medium" />
 			{/each}
 		</div>
 	</section>

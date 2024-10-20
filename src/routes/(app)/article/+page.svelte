@@ -1,6 +1,7 @@
 <script>
 	import { Bookmark, Share2 as Share } from 'lucide-svelte';
-	import { Button, Card, Badge, Main, Picture, Time } from '$lib/components';
+	import { Button, Badge, Main, Picture, Time } from '@components';
+  import { Card } from "@article/components";
 
 	function handleShare() {
 		navigator.share({
@@ -126,14 +127,14 @@
 					<h2 class="heading-2">Ultimas Noticias</h2>
 				</header>
 				<div class="xl:hidden">
-					<Card variant="horizontal" />
+					<Card variant="horizontal" background />
 				</div>
 				<div class="hidden xl:block">
-					<Card />
+					<Card variant="medium" background/>
 				</div>
 				<div class="grid md:grid-cols-2 xl:(flex flex-col) gap-4">
 					{#each { length: 4 } as _}
-						<Card variant="vertical-small" />
+						<Card variant="small" />
 					{/each}
 				</div>
 			</section>
@@ -145,7 +146,7 @@
 		</header>
 		<div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">
 			{#each { length: 12 } as _}
-				<Card background={false} />
+				<Card variant="medium" />
 			{/each}
 		</div>
 	</section>

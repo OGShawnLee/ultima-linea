@@ -3,13 +3,15 @@ import { presetUno, presetWebFonts, transformerDirectives, transformerVariantGro
 
 export default defineConfig({
   shortcuts: {
+    "anchor-hover": "hover:text-marque-light hover:dark:text-marque",
     "button": "flex items-center justify-center gap-2",
     "button--lesser": "text-summit-light dark:text-summit bg-ground-3-light dark:bg-ground-3 hover:(bg-ground-4-light dark:bg-ground-4) border-focus-effect",
     "button--icon": "text-summit-light dark:text-summit hover:text-lesser border-focus-effect",
     "border-focus-effect": "", // we will handle focus states later on
     "section-header": "min-h-10",
-    "heading-1": "text-3xl md:text-4xl text-summit-light dark:text-summit font-bold",
-    "heading-2": "text-2xl text-summit-light dark:text-summit tracking-tight font-bold",
+    "heading": "text-summit-light dark:text-summit tracking-tight",
+    "heading-1": "heading text-3xl md:text-4xl font-bold",
+    "heading-2": "heading text-2xl font-bold",
     "container": "w-full max-w-1538px mx-auto",
     "container--padding": "px-4 md:px-8",
   },
