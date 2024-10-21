@@ -47,6 +47,11 @@ module default {
         weight_category := fts::Weight.A,
       ),
       fts::with_options(
+        .summary,
+        language := fts::Language.spa,
+        weight_category := fts::Weight.B,
+      ),
+      fts::with_options(
         .text,
         language := fts::Language.spa,
         weight_category := fts::Weight.B,
