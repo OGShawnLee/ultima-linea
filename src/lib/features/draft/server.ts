@@ -15,3 +15,25 @@ export function createDraft(data: DraftData, currentUser: AuthToken) {
     }).run(getClient())
   ))
 }
+
+export function findDraft(id: string, currentUser: AuthToken) {
+  return useAwait(() => (
+    e.select(e.Draft, () => ({
+      id: true,
+      title: true,
+      summary: true,
+      content: true,
+      text: true,
+      filter_single: { id, user: buildUserRelationQuery(currentUser) }
+    })).run(getClient())
+  ))
+}
+
+export function updateDraft(id: string, data: DraftData, currentUser: AuthToken) {
+  return useAwait(() => (
+    e.update(e.Draft, () => ({
+      set: data,
+      filter_single: { id, user: buildUserRelationQuery(currentUser) }
+    })).run(getClient())
+  ))
+}
