@@ -1,6 +1,7 @@
 <script lang="ts">
   import type { CardDraft } from "@draft/schema";
-  import { Time } from "@components";
+  import { Button, Time } from "@components";
+  import { ClipboardPen } from "lucide-svelte";
 
   export let draft: CardDraft;
 </script>
@@ -14,5 +15,8 @@
       <p>{draft.summary}</p>
     {/if}
     <Time datetime={draft.updated_at} />
+    <div class="flex items-center gap-4 flex-wrap">
+      <Button href="/dashboard/{draft.id}/editor" icon={ClipboardPen} text="Editar" />
+    </div>
   </div>
 </article>
