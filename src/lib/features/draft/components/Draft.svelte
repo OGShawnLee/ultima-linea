@@ -1,12 +1,16 @@
 <script lang="ts">
   import type { CardDraft } from "@draft/schema";
   import { Button, Time } from "@components";
-  import { ClipboardPen } from "lucide-svelte";
+  import { ClipboardPen, ClipboardX } from "lucide-svelte";
+	import { enhance } from "$app/forms";
+	import { createEventDispatcher } from "svelte";
 
   export let draft: CardDraft;
+
+  const dispatch = createEventDispatcher<{ delete: string }>();
 </script>
 
-<article class="inline-block mb-8">
+<article>
   <div class="p-8 grid gap-6 bg-ground-1-light dark:bg-ground-1 rounded-xl">
     <a href="/dashboard/{draft.id}/editor" class="anchor-hover heading">
       <h2 class="font-semibold text-2xl">{draft.title}</h2>
@@ -17,6 +21,16 @@
     <Time datetime={draft.updated_at} />
     <div class="flex items-center gap-4 flex-wrap">
       <Button href="/dashboard/{draft.id}/editor" icon={ClipboardPen} text="Editar" />
+      <form action="/dashboard?/delete-draft" method="post" use:enhance={() => {
+        return (event) => {
+          if (event.result.type === "success") {
+            dispatch("delete", draft.id);
+          }
+        }
+      }}>
+        <input type="hidden" name="id" value="{draft.id}" />
+        <Button icon={ClipboardX} text="Eliminar" />
+      </form>
     </div>
   </div>
 </article>

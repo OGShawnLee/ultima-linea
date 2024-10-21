@@ -16,6 +16,14 @@ export function createDraft(data: DraftData, currentUser: AuthToken) {
   ))
 }
 
+export function deleteDraft(id: string, currentUser: AuthToken) {
+  return useAwait(() => (
+    e.delete(e.Draft, () => ({
+      filter_single: { id, user: buildUserRelationQuery(currentUser) }
+    })).run(getClient())
+  ))
+}
+
 export function findDraft(id: string, currentUser: AuthToken) {
   return useAwait(() => (
     e.select(e.Draft, () => ({

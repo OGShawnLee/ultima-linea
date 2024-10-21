@@ -1,9 +1,14 @@
-<script>
+<script lang="ts">
 	import { Main } from '@components';
 	import { Draft } from '@draft/components';
-
+	import { flip } from "svelte/animate";
+	import { slide } from "svelte/transition";
 
 	export let data;
+
+	function handleDraftDelete(event: CustomEvent<string>) {
+		data.drafts = data.drafts.filter((draft) => draft.id !== event.detail);
+	}
 </script>
 
 <svelte:head>
@@ -18,9 +23,11 @@
 		<header class="section-header">
 			<h2 class="heading-1 text-center">Borradores</h2>
 		</header>
-		<div class="columns-[3_326px]" style="column-gap:2rem;">
+		<div style="columns: 3 326px; column-gap: 2rem;">
 			{#each data.drafts as draft (draft.id)}
-        <Draft {draft} />
+				<div class="inline-block mb-8" animate:flip={{ duration: 450 }} transition:slide>
+					<Draft {draft} on:delete={handleDraftDelete} />
+				</div>
 			{/each}
 		</div>
 	</section>
