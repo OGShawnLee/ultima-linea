@@ -9,7 +9,7 @@
 </script>
 
 <header
-	class="fixed top-0 inset-0 h-20 bg-ground-0-light/75 dark:bg-ground-0/75 backdrop-filter backdrop-blur-lg"
+	class="fixed top-0 z-10 inset-0 h-20 bg-ground-0-light/75 dark:bg-ground-0/75 backdrop-filter backdrop-blur-lg"
 >
 	<div class="container container--padding h-full flex items-center justify-between">
 		<div class="flex items-center gap-12">
@@ -20,8 +20,11 @@
 					Ultima Linea
 				</span>
 			</a>
-			<nav class="hidden sm:flex">
-				<a href="/">Inicio</a>
+			<nav class="hidden sm:(flex items-center gap-8)">
+				<a class="anchor-hover" href="/">Inicio</a>
+				{#if $currentUser}
+					<a class="anchor-hover" href="/dashboard/editor">Editor</a>
+				{/if}
 			</nav>
 		</div>
 		<div class="hidden sm:flex gap-2">

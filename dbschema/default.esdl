@@ -23,4 +23,57 @@ module default {
       default := datetime_of_statement();
     }
   }
+
+  type Record {
+    required user: User;
+    required title: str {
+      constraint min_len_value(32);
+      constraint max_len_value(256);
+    }
+    clean_title := str_trim(str_lower(.title));
+    content: str;
+    summary: str;
+    text: str;
+    required created_at: datetime {
+      readonly := true;
+      rewrite insert using (datetime_of_statement());
+      default := datetime_of_statement();
+    }
+
+    index fts::index on ((
+      fts::with_options(
+        .title,
+        language := fts::Language.spa,
+        weight_category := fts::Weight.A,
+      ),
+      fts::with_options(
+        .text,
+        language := fts::Language.spa,
+        weight_category := fts::Weight.B,
+      )
+    ));
+  }
+
+  type Draft extending Record {
+    overloaded summary: str {
+      constraint max_len_value(256);
+    }
+    overloaded content: str {
+      constraint max_len_value(8192);
+    }
+    overloaded text: str {
+      constraint max_len_value(8192);
+    }
+    required updated_at: datetime {
+      rewrite insert using (datetime_of_statement());
+      rewrite update using (
+        std::datetime_of_statement()
+        if <json>__subject__ {*} != <json>__old__ {*}
+        else datetime_of_statement()
+      );
+      default := datetime_of_statement();
+    }
+
+    constraint exclusive on (.clean_title);
+  }
 }

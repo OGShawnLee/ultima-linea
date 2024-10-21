@@ -10,6 +10,10 @@ export type Result<Data, Error = unknown> = {
   error: Error 
 }
 
+export function concat(className: string, additional: string) {
+  return additional ? className + " " + additional : className;
+}
+
 export function createGlobalState<State>(name: string) {
 	return {
 		mount(value: State) {
@@ -20,6 +24,10 @@ export function createGlobalState<State>(name: string) {
 			return getContext(name) as Writable<State | null>;
 		}
 	};
+}
+
+export function f(input: string, ...args: any[]) {
+  return input.replace(/\{(\d+)\}/g, (_, i) => args[i]);
 }
 
 export async function useAwait<Data, Error>(fn: () => Promise<Data>): Promise<Result<Data, Error>> {

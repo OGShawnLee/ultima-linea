@@ -14,6 +14,9 @@ export default defineConfig({
     "heading-2": "heading text-2xl font-bold",
     "container": "w-full max-w-1538px mx-auto",
     "container--padding": "px-4 md:px-8",
+    "input-common": "w-full px-4 bg-transparent outline-none border-b border-ground-3-light dark:border-ground-3 text-summit-light dark:text-summit placeholder-middle resize-none",
+    "input-common--input": "h-10 font-bold placeholder-font-normal placeholder-text-sm focus:(border-marque-light dark:border-marque)",
+    "input-common--textarea": "min-h-12 py-4 leading-loose",
   },
   theme: {
     colors: {

@@ -18,14 +18,15 @@
 	<Field {form} name="email">
 		<Input.Group>
 			<Control let:attrs>
-				<Input.Input
-					id={attrs.name}
-					label="Correo electrónico"
-					icon={Mail}
-					type="email"
-					placeholder="Introduzca su correo electrónico"
-					bind:value={$input['email']}
-				/>
+				<Input.Root>
+					<Input.Label id={attrs.name} label="Correo electrónico" icon={Mail} />
+					<Input.Input
+						name={attrs.name}
+						type="email"
+						placeholder="Introduzca su correo electrónico"
+						bind:value={$input['email']}
+					/>
+				</Input.Root>
 			</Control>
 			<Input.Error />
 		</Input.Group>
@@ -33,14 +34,15 @@
 	<Field {form} name="password">
 		<Input.Group>
 			<Control let:attrs>
-				<Input.Input
-					id={attrs.name}
-					label="Contraseña"
-					icon={Lock}
-					type="password"
-					placeholder="Introduzca su contraseña"
-					bind:value={$input['password']}
-				/>
+				<Input.Root>
+					<Input.Label id={attrs.name} label="Contraseña" icon={Lock} />
+					<Input.Input
+						name={attrs.name}
+						type="password"
+						placeholder="Introduzca su contraseña"
+						bind:value={$input['password']}
+					/>
+				</Input.Root>
 			</Control>
 			<Input.Error />
 		</Input.Group>

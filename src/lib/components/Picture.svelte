@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { concat } from "$lib";
+
   let className = "";
   
   export { className as class };
@@ -6,10 +8,6 @@
 	export let src = 'https://utfs.io/f/6843c429-5103-48ae-a99f-833082026e41-57p9e8.jpeg';
 	export let alt = 'Placeholder Image';
   export let label = false;
-  
-  function concat(className: string, additional: string) {
-    return additional ? className + " " + additional : className;
-}
 </script>
 
 <figure class={concat("w-full flex flex-col gap-4", className)}>

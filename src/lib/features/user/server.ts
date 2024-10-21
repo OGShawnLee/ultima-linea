@@ -1,10 +1,17 @@
 import type { User } from "@interfaces";
-import type { SignUpData } from "@auth/schema";
+import type { AuthToken, SignUpData } from "@auth/schema";
 import auth from "@auth/server";
 import e, { getClient } from "@db";
 import { useAwait } from "$lib";
 
 export type CurrentUser = Pick<User, "id" | "display_name" | "name">;
+
+export function buildUserRelationQuery(currentUser: AuthToken) {
+  return e.select(e.User, () => ({
+    id: true,
+    filter_single: { id: currentUser.id }
+  }));
+}
 
 export function findCurrentUser(id: string) {
   return useAwait<CurrentUser | null, unknown>(() => {

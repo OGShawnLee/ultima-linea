@@ -1,5 +1,9 @@
 <script>
 	import { FieldErrors } from "formsnap";
+
+	export let padded = false;
 </script>
 
-<FieldErrors class="text-xs text-lesser-light dark:text-lesser" />
+<FieldErrors 
+	class="{padded ? "md:px-16" : "px-0"} text-xs text-lesser-light dark:text-lesser" 
+/>

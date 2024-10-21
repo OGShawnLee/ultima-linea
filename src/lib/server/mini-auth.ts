@@ -27,7 +27,7 @@ interface AuthClient<Payload extends object, User extends object> {
 	getAuthToken(cookies: Cookies): Payload;
 	findAuthToken(cookies: Cookies): Result<Payload, Errors>;
 	findCurrentUser(cookie: Cookies): Promise<Result<User | null, string>>;
-	getcurrentUser(cookies: Cookies): Promise<User>;
+	getCurrentUser(cookies: Cookies): Promise<User>;
 	setAuthCookie(cookies: Cookies, payload: Payload): Payload;
 	handle: Handle;
 	signInRoute: string;
@@ -146,7 +146,7 @@ function createAuthClient<Payload extends object, User extends object>({
 		handle,
 		setAuthCookie,
 		signInRoute,
-		getcurrentUser: getCurrentFromCookies,
+		getCurrentUser: getCurrentFromCookies,
 		findCurrentUser: findCurrentUserFromCookies,
 		getAuthToken(cookies) {
 			const token = findAuthToken(cookies);

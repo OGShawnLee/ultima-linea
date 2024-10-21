@@ -16,6 +16,8 @@ const config = {
 			"@article": "src/lib/features/article",
 			"@auth": "src/lib/features/auth",
 			"@components": "src/lib/components",
+			"@draft": "src/lib/features/draft",
+			"@editor": "src/lib/features/editor",
 			"@layout": "src/lib/layout",
 			"@state": "src/lib/state",
 			"@db": "src/lib/server/db",
