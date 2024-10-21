@@ -6,6 +6,10 @@
 	export let data;
 </script>
 
+<svelte:head>
+	<title>Dashboard - Ultima Linea</title>
+</svelte:head>
+
 <Main>
   <header class="container--padding pt-12">
     <h1 class="text-lesser-light dark:text-lesser text-center">Dashboard</h1>  
