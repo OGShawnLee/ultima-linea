@@ -23,6 +23,7 @@
 			<nav class="hidden sm:(flex items-center gap-8)">
 				<a class="anchor-hover" href="/">Inicio</a>
 				{#if $currentUser}
+					<a class="anchor-hover" href="/dashboard">Dashboard</a>
 					<a class="anchor-hover" href="/dashboard/editor">Editor</a>
 				{/if}
 			</nav>

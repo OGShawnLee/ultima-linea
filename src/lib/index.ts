@@ -30,7 +30,7 @@ export function f(input: string, ...args: any[]) {
   return input.replace(/\{(\d+)\}/g, (_, i) => args[i]);
 }
 
-export async function useAwait<Data, Error>(fn: () => Promise<Data>): Promise<Result<Data, Error>> {
+export async function useAwait<Data, Error = unknown>(fn: () => Promise<Data>): Promise<Result<Data, Error>> {
   try {
     return { data: await fn(), failed: false } as Result<Data, Error>;
   } catch (error) {
@@ -38,7 +38,7 @@ export async function useAwait<Data, Error>(fn: () => Promise<Data>): Promise<Re
   }
 }
 
-export function useCatch<Data, Error>(fn: () => Data): Result<Data, Error> {
+export function useCatch<Data, Error = unknown>(fn: () => Data): Result<Data, Error> {
   try {
     return { data: fn(), failed: false } as Result<Data, Error>;
   } catch (error) {

@@ -7,7 +7,6 @@
 	import { valibotClient } from 'sveltekit-superforms/adapters';
 	import { Control, Field } from 'formsnap';
 	import { Save } from 'lucide-svelte';
-	import { page } from '$app/stores';
 
 	export let data;
 
@@ -59,9 +58,7 @@
 				<Input.Group>
 					<Control let:attrs>
 						<Input.Label id={attrs.name} label="Contenido" hidden />
-						{#key $page.params}
-							<Editor name={attrs.name} bind:content={$input.content} bind:text={$input.text} />
-						{/key}
+						<Editor name={attrs.name} bind:content={$input.content} bind:text={$input.text} />
 						<Input.Error padded />
 					</Control>
 				</Input.Group>
