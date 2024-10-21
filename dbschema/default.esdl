@@ -74,7 +74,7 @@ module default {
       rewrite update using (
         std::datetime_of_statement()
         if <json>__subject__ {*} != <json>__old__ {*}
-        else datetime_of_statement()
+        else __old__.updated_at
       );
       default := datetime_of_statement();
     }
