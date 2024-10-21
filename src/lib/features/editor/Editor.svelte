@@ -2,7 +2,7 @@
 	import * as Extensions from '@editor/extensions';
 	import { Toggle } from '@editor/components';
 	import { Editor } from '@tiptap/core';
-  import { Bold, Italic, Heading, Quote, Strikethrough, Underline, Undo2, Redo2 } from "lucide-svelte";
+  import { Bold, Italic, Heading, List, ListOrdered, Quote, Strikethrough, Underline, Undo2, Redo2 } from "lucide-svelte";
 	import { onMount } from 'svelte';
 
 	export let content: string | undefined | null;
@@ -30,6 +30,15 @@
 				}),
 				Extensions.Bold.configure({
 					HTMLAttributes: { class: 'text-summit-light dark:text-summit' }
+				}),
+				Extensions.ListItem.configure({
+					HTMLAttributes: { class: '[&>p]:px-0 [&>ol]:mx-4 [&>ul]:mx-4' }
+				}),
+				Extensions.BulletList.configure({
+					HTMLAttributes: { class: 'list-disc mx-20' }
+				}),
+				Extensions.OrderedList.configure({
+					HTMLAttributes: { class: 'list-decimal mx-20' }
 				}),
 				Extensions.Document.extend({
 					content: 'block+'
@@ -74,7 +83,7 @@
 
 <div>
 	<div
-		class="sticky z-5 top-20 py-2 flex justify-center gap-4 bg-ground-0-light/75 dark:bg-ground-0/75 backdrop-filter backdrop-blur-lg"
+		class="sticky z-5 top-20 py-2 flex items-center justify-center gap-2 bg-ground-0-light/75 dark:bg-ground-0/75 backdrop-filter backdrop-blur-lg"
 	>
 		<Toggle
 			label="Negritas"
@@ -112,6 +121,7 @@
 				editor?.chain().focus().toggleStrike().run();
 			}}
 		/>
+		<div class="h-10 w-0.5 bg-ground-3-light dark:bg-ground-2" role="separator" />
 		<Toggle
 			label="Encabezado"
 			icon={Heading}
@@ -130,6 +140,25 @@
 				editor?.chain().focus().toggleBlockquote().run();
 			}}
 		/>
+		<Toggle
+			label="Lista"
+			icon={List}
+			active={editor?.isActive('bulletList')}
+			disabled={!editor?.can().toggleBulletList()}
+			on:click={() => {
+				editor?.chain().focus().toggleBulletList().run();
+			}}
+		/>
+		<Toggle
+			label="Lista Ordenada"
+			icon={ListOrdered}
+			active={editor?.isActive('orderedList')}
+			disabled={!editor?.can().toggleOrderedList()}
+			on:click={() => {
+				editor?.chain().focus().toggleOrderedList().run();
+			}}
+		/>
+		<div class="h-10 w-0.5 bg-ground-3-light dark:bg-ground-2" role="separator" />
 		<Toggle
 			label="Deshacer"
 			icon={Undo2}

@@ -9,7 +9,7 @@
 </script>
 
 <button
-	class="size-12 grid place-content-center bg-transparent rounded-lg text-lesser-light dark:text-lesser-dark {disabled ? 'cursor-not-allowed' : 'cursor-pointer hover:(bg-ground-3-light dark:bg-ground-3)'}"
+	class="size-12 grid place-content-center bg-transparent rounded-lg text-middle {disabled ? 'cursor-not-allowed' : 'cursor-pointer hover:(bg-ground-3-light dark:bg-ground-3)'}"
 	aria-label={label}
 	data-active={active ? active : undefined}
 	data-disabled={disabled ? disabled : undefined}
@@ -19,7 +19,7 @@
 	on:click
 >
 	{#if typeof icon !== 'string'}
-		<svelte:component this={icon} strokeWidth={1.5} />
+		<svelte:component this={icon} strokeWidth={2} />
 	{:else}
 		<i class="bx text-2xl {icon}" />
 	{/if}
@@ -31,6 +31,6 @@
 	}
 
 	button[data-disabled] {
-		--uno: 'text-middle';
+		--uno: 'text-ground-3-light dark:text-ground-3';
 	}
 </style>
