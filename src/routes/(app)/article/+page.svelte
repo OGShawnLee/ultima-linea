@@ -67,7 +67,7 @@
 						</p>
 					</div>
 					<div class="flex items-center justify-end gap-2">
-						<Button icon={Bookmark} size="size-10" />
+						<Button icon={Bookmark} size="size-10" label="Añadir a Marcardores" />
 						<Button icon={Share} text="Compartir" on:click={handleShare} />
 					</div>
 				</header>

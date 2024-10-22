@@ -5,4 +5,5 @@ export { default as Main } from "./Main.svelte";
 export { default as More } from "./More.svelte";
 export { default as Picture } from "./Picture.svelte";
 export { Text } from "./Text";
+export { Tooltip } from "./Tooltip";
 export { default as Time } from "./Time.svelte";

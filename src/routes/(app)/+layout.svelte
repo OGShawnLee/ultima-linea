@@ -1,9 +1,8 @@
 <script>
-	import { Button } from '$lib/components';
+	import { Button } from '@components';
 	import { LogIn, LogOut, Moon, Search, Sun } from 'lucide-svelte';
 	import { UserState } from '@state';
 	import { mode, toggleMode } from 'mode-watcher';
-	import { enhance } from '$app/forms';
 
 	const currentUser = UserState.getContext();
 </script>
@@ -29,8 +28,19 @@
 			</nav>
 		</div>
 		<div class="hidden sm:flex gap-2">
-			<Button background={false} href="/search" icon={Search} size="size-10" />
-			<Button icon={$mode === 'dark' ? Sun : Moon} size="size-10" on:click={toggleMode} />
+			<Button
+				background={false}
+				href="/search"
+				icon={Search}
+				size="size-10"
+				label="Buscar Artículos"
+			/>
+			<Button
+				icon={$mode === 'dark' ? Sun : Moon}
+				size="size-10"
+				label={$mode === 'dark' ? 'Activar Modo Claro' : 'Activar Modo Oscuro'}
+				on:click={toggleMode}
+			/>
 			{#if $currentUser}
 				<Button href="/auth/sign-out" text="Salir" icon={LogOut} />
 			{:else}
