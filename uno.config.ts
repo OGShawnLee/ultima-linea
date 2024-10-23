@@ -4,10 +4,21 @@ import { presetUno, presetWebFonts, transformerDirectives, transformerVariantGro
 export default defineConfig({
   shortcuts: {
     "anchor-hover": "hover:text-marque-light hover:dark:text-marque",
+    // @Button
     "button": "flex items-center justify-center gap-2",
-    "button--lesser": "text-summit-light dark:text-summit bg-ground-3-light dark:bg-ground-3 hover:(bg-ground-4-light dark:bg-ground-4) border-focus-effect",
-    "button--icon": "text-summit-light dark:text-summit hover:text-lesser border-focus-effect",
-    "border-focus-effect": "", // we will handle focus states later on
+    "button--square-8": "size-8",
+    "button--square-10": "size-10",
+    "button--square-12": "size-12",
+    "button--rectangle-10": "h-10 px-4",
+    "button--rectangle-12": "h-12 px-4",
+    "button--background": "bg-ground-3-light dark:bg-ground-3 text-summit-light dark:text-summit hover:(bg-ground-4-light dark:bg-ground-4)",
+    "button--background-less": "bg-transparent text-summit-light dark:text-summit hover:(text-lesser-light darK:text-lesser)",
+    "button--inverse": "bg-ground-0-light dark:bg-ground-0 border border-ground-3-light dark:border-ground-3 rounded-xl hover:(bg-ground-4 text-white)",
+    // @Dialog
+    "dialog": "fixed z-10 inset-0 top-0 max-h-100vh overflow-y-auto sm:(inset-initial top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-h-[calc(100vh-5rem)] w-xl)",
+    "dialog-overlay": "fixed z-10 inset-0 bg-ground-0-light/90 dark:bg-ground-0/90",
+    "dialog--background": "bg-ground-1-light bg-ground-1-light dark:bg-ground-1 border border-ground-3-light dark:border-ground-3 rounded-xl shadow-md",
+    // @Header
     "section-header": "min-h-10",
     "heading": "text-summit-light dark:text-summit tracking-tight",
     "heading-1": "heading text-3xl md:text-4xl font-bold",

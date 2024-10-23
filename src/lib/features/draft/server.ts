@@ -1,8 +1,25 @@
 import type { AuthToken } from "@auth/schema";
 import type { CardDraft, DraftData } from "@draft/schema";
+import type { CaptionData, ImageData } from "@picture/schema";
 import e, { getClient } from "@db";
 import { useAwait } from "$lib";
 import { buildUserRelationQuery } from "@user/server";
+import { buildCreateCaptionQuery, buildCreateImageQuery  } from "@picture/server";
+
+export function addDraftPicture(id: string, data: CaptionData & ImageData, currentUser: AuthToken) {
+  const image = buildCreateImageQuery(data);
+  const caption = buildCreateCaptionQuery(data);
+  return useAwait(() => (
+    e.update(e.Draft, () => ({
+      set: {
+        image, 
+        caption,
+        updated_at: image.created_at
+      },
+      filter_single: {  id, user: buildUserRelationQuery(currentUser) },
+    })).run(getClient())
+  ))
+}
 
 export function createDraft(data: DraftData, currentUser: AuthToken) {
   return useAwait(() => (
@@ -32,6 +49,8 @@ export function findDraft(id: string, currentUser: AuthToken) {
       summary: true,
       content: true,
       text: true,
+      image: { image_key: true, image_url: true },
+      caption: { image_label: true, image_src: true },
       filter_single: { id, user: buildUserRelationQuery(currentUser) }
     })).run(getClient())
   ))
@@ -43,6 +62,8 @@ export function getDrafts(currentUser: AuthToken) {
       id: true,
       title: true,
       summary: true,
+      image: { image_key: true, image_url: true },
+      caption: { image_label: true, image_src: true },
       updated_at: true,
       order_by: {
         expression: draft.updated_at,
@@ -58,6 +79,30 @@ export function updateDraft(id: string, data: DraftData, currentUser: AuthToken)
     e.update(e.Draft, () => ({
       set: data,
       filter_single: { id, user: buildUserRelationQuery(currentUser) }
+    })).run(getClient())
+  ))
+}
+
+export function buildDraftRelationQuery(id: string, currentUser: AuthToken) {
+  return e.select(e.Draft, () => ({
+    id: true,
+    filter_single: { id, user: buildUserRelationQuery(currentUser) }
+  }));
+}
+
+export function updateDraftPicture(id: string, data: CaptionData, currentUser: AuthToken) {
+  const draft = buildDraftRelationQuery(id, currentUser);
+  return useAwait(() => (
+    e.update(draft, () => ({
+      set: {
+        updated_at: e.update(e.Caption, (caption) => ({
+          set: {
+            image_label: data["image-label"],
+            image_src: data["image-src"]
+          },
+          filter_single: e.op(draft.caption.id, "=", caption.id)
+        })).updated_at
+      },
     })).run(getClient())
   ))
 }

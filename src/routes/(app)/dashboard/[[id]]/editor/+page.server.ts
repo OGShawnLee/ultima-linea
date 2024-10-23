@@ -1,11 +1,13 @@
 import auth from "@auth/server";
 import { ConstraintViolationError } from "edgedb";
 import { DraftSchema } from "@draft/schema";
-import { createDraft, findDraft, updateDraft } from "@draft/server";
+import { PictureSchema } from "@picture/schema";
+import { uploadFile, uploadthing } from "@server/uploadthing";
+import { addDraftPicture, createDraft, findDraft, updateDraft, updateDraftPicture } from "@draft/server";
 import { fail, setError, superValidate } from "sveltekit-superforms";
 import { valibot } from "sveltekit-superforms/adapters"
 import { error, redirect } from "@sveltejs/kit";
-import { f } from "$lib";
+import { f, isNullish } from "$lib";
 
 export async function load(event) {
   if (event.params.id) {
@@ -17,7 +19,14 @@ export async function load(event) {
 
     if (draft.data) {
       return {
-        form: await superValidate(draft.data, valibot(DraftSchema))
+        hasDraft: true,
+        form: await superValidate(draft.data, valibot(DraftSchema)),
+        picture: await superValidate({
+          "image-label": draft.data.caption?.image_label ?? draft.data.title + ".",
+          "image-src": draft.data.caption?.image_src ?? "WEB",
+          "image-url": draft.data.image?.image_url,
+          "image-key": draft.data.image?.image_key,
+        }, valibot(PictureSchema))
       }
     }
 
@@ -25,22 +34,24 @@ export async function load(event) {
   }
 
   return {
-    form: await superValidate(valibot(DraftSchema))
+    hasDraft: false,
+    form: await superValidate(valibot(DraftSchema)),
+    picture: await superValidate(valibot(PictureSchema))
   }
 }
 
 export const actions = {
-  async default(event) {
+  "upload-draft": async (event) => {
     const currentUser = auth.getAuthToken(event.cookies);
     const form = await superValidate(event, valibot(DraftSchema));
-    
+
     if (form.valid === false) {
       return fail(400, form);
     }
-    
+
     if (event.params.id) {
       const draft = await updateDraft(event.params.id, form.data, currentUser);
-      
+
       if (draft.failed) {
         throw error(500, "No ha sido posible actualizar su borrador, intente más tarde.");
       }
@@ -63,5 +74,61 @@ export const actions = {
     }
 
     throw redirect(303, f("/dashboard/{0}/editor", draft.data.id));
+  },
+  "upload-picture": async (event) => {
+    const currentUser = auth.getAuthToken(event.cookies);
+    const form = await superValidate(event, valibot(PictureSchema));
+
+    if (form.valid === false) {
+      return fail(400, form);
+    }
+
+    if (isNullish(event.params.id)) {
+      throw error(400, "No se ha especificado un borrador para añadir la imagen.");
+    }
+
+    if (isNullish(form.data["image-file"]) && isNullish(form.data["image-key"])) {
+      throw error(400, "No se ha especificado un archivo de imagen.");
+    }
+
+    if (form.data["image-file"]) {
+      const image = await uploadFile(form.data["image-file"]);
+
+      if (image.error) {
+        return fail(500, { form });
+      }
+
+      if (form.data["image-key"]) {
+        // TODO: ADD CRON JOB TO DELETE ORPHAN IMAGES
+        console.log("Replacing image file...");
+      } 
+
+      const draft = await addDraftPicture(event.params.id, {
+        "image-label": form.data["image-label"],
+        "image-src": form.data["image-src"],
+        "image-url": image.data.url,
+        "image-key": image.data.key
+      }, currentUser);
+
+      if (draft.failed) {
+        uploadthing.deleteFiles([image.data.key]);
+        return fail(500, { form });
+      }
+    } 
+    
+    if (form.data["image-key"]) {
+      const draft = await updateDraftPicture(event.params.id, {
+        "image-label": form.data["image-label"],
+        "image-src": form.data["image-src"],
+      }, currentUser);
+
+      if (draft.failed) {
+        return fail(500, { form });
+      }
+
+      if (isNullish(draft.data)) {
+        return fail(500, { form });
+      }
+    }
   }
 }

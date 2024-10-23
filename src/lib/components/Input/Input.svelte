@@ -16,4 +16,5 @@
 	{placeholder}
 	required
 	on:input={handleInput}
+	{value}
 />

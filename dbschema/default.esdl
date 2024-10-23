@@ -24,6 +24,47 @@ module default {
     }
   }
 
+  type Image {
+    required image_key: str {
+      readonly := true;
+      constraint exclusive;
+    }
+    required image_url: str {
+      readonly := true;
+      constraint exclusive;
+    }
+    required created_at: datetime {
+      readonly := true;
+      rewrite insert using (datetime_of_statement());
+      default := datetime_of_statement();
+    }
+  }
+
+  type Caption {
+    required image_src: str {
+      constraint min_len_value(3);
+      constraint max_len_value(64);
+    }
+    required image_label: str {
+      constraint min_len_value(6);
+      constraint max_len_value(512);
+    }
+    required created_at: datetime {
+      readonly := true;
+      rewrite insert using (datetime_of_statement());
+      default := datetime_of_statement();
+    }
+    required updated_at: datetime {
+      rewrite insert using (datetime_of_statement());
+      rewrite update using (
+        std::datetime_of_statement()
+        if <json>__subject__ {*} != <json>__old__ {*}
+        else __old__.updated_at
+      );
+      default := datetime_of_statement();
+    }
+  }
+
   type Record {
     required user: User;
     required title: str {
@@ -34,6 +75,8 @@ module default {
     content: str;
     summary: str;
     text: str;
+    image: Image;
+    caption: Caption;
     required created_at: datetime {
       readonly := true;
       rewrite insert using (datetime_of_statement());
@@ -69,11 +112,19 @@ module default {
     overloaded text: str {
       constraint max_len_value(8192);
     }
+    overloaded image: Image {
+      constraint exclusive;
+    }
+    overloaded caption: Caption {
+      constraint exclusive;
+    }
     required updated_at: datetime {
       rewrite insert using (datetime_of_statement());
       rewrite update using (
         std::datetime_of_statement()
-        if <json>__subject__ {*} != <json>__old__ {*}
+        if 
+          (__specified__.updated_at and __subject__.updated_at > __old__.updated_at) 
+          or <json>__subject__ {*} != <json>__old__ {*}
         else __old__.updated_at
       );
       default := datetime_of_statement();

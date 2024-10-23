@@ -4,6 +4,9 @@ import _Input from "./Input.svelte";
 import _Label from "./Label.svelte";
 import _Root from "./Root.svelte";
 import _TextArea from "./TextArea.svelte";
+import Uploader from "./Uploader.svelte";
+
+export { Uploader };
 
 export namespace Input {
   export const Error = _Error;

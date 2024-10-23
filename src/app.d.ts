@@ -12,6 +12,14 @@ declare global {
 		// interface PageState {}
 		// interface Platform {}
 	}
+
+	type Nullish<T> = T | null | undefined;
+	type LooseObject<T> = {
+		[P in keyof T]?: Nullish<T[P]>
+	}
+	type StrictObject<T> = {
+		[P in keyof T]-?: NonNullable<T[P]>
+	}
 }
 
 export {};
