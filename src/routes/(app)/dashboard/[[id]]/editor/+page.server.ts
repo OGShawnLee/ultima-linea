@@ -8,6 +8,7 @@ import { fail, setError, superValidate } from "sveltekit-superforms";
 import { valibot } from "sveltekit-superforms/adapters"
 import { error, redirect } from "@sveltejs/kit";
 import { f, isNullish } from "$lib";
+import { useAPI } from "$lib/api";
 
 export async function load(event) {
   if (event.params.id) {
@@ -100,7 +101,7 @@ export const actions = {
 
       if (form.data["image-key"]) {
         // TODO: ADD CRON JOB TO DELETE ORPHAN IMAGES
-        console.log("Replacing image file...");
+        useAPI("/api/picture/orphan", null, event.fetch);
       } 
 
       const draft = await addDraftPicture(event.params.id, {
