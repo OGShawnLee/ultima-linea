@@ -41,6 +41,7 @@
 		"@unocss/reset": "^0.63.4",
 		"bcrypt": "^5.1.1",
 		"bits-ui": "^0.21.16",
+		"devalue": "^5.1.1",
 		"edgedb": "^1.5.12",
 		"formsnap": "^1.0.1",
 		"jsonwebtoken": "^9.0.2",
