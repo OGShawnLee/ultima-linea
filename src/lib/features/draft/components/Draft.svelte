@@ -5,26 +5,31 @@
 	import { enhance } from '$app/forms';
 	import { createEventDispatcher } from 'svelte';
 
+	export let background = true;
 	export let draft: CardDraft;
 
 	const dispatch = createEventDispatcher<{ delete: string }>();
 </script>
 
 <article>
-	<Picture rounded="rounded-t-xl" image={draft.image} caption={draft.caption} />
+	<Picture
+		rounded={background ? 'rounded-t-xl' : 'rounded-xl'}
+		image={draft.image}
+		caption={draft.caption}
+	/>
 	<div
-		class="p-8 grid gap-6 bg-ground-1-light dark:bg-ground-1 {draft.image
-			? 'rounded-b-xl'
-			: 'rounded-xl'}"
+		class="p-8 grid gap-6 {background
+			? 'bg-ground-1-light dark:bg-ground-1'
+			: 'bg-transparent'} rounded-xl"
 	>
-		<a href="/dashboard/{draft.id}/editor" class="anchor-hover heading">
+		<a href="/dashboard/draft/{draft.id}" class="anchor-hover heading">
 			<h2 class="font-semibold text-2xl">{draft.title}</h2>
 		</a>
 		{#if draft.summary}
 			<p>{draft.summary}</p>
 		{/if}
 		<Time datetime={draft.updated_at} />
-		<div class="flex items-center gap-4 flex-wrap">
+		<div class="flex items-center gap-2 flex-wrap">
 			<Button href="/dashboard/{draft.id}/editor" icon={ClipboardPen} text="Editar" />
 			<form
 				action="/dashboard?/delete-draft"
@@ -38,7 +43,7 @@
 				}}
 			>
 				<input type="hidden" name="id" value={draft.id} />
-				<Button icon={ClipboardX} text="Eliminar" />
+				<Button icon={ClipboardX} text="Eliminar" type="submit" />
 			</form>
 		</div>
 	</div>
