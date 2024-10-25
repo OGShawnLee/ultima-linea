@@ -1,10 +1,12 @@
 export { default as Badge } from "./Badge.svelte";
 export { default as Button } from "./Button.svelte";
+export { Dialog } from "./Dialog";
 export { Input, Uploader } from "./Input";
 export { default as Main } from "./Main.svelte";
 export { default as More } from "./More.svelte";
 export { default as Picture } from "./Picture.svelte";
 export { Text } from "./Text";
 export { Tooltip } from "./Tooltip";
+export { default as Radio } from "./Radio.svelte";
 export { default as Toaster, createToast } from "./Toaster.svelte";
 export { default as Time } from "./Time.svelte";

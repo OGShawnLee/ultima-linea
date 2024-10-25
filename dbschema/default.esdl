@@ -1,4 +1,6 @@
 module default {
+  scalar type Region extending enum<LOCAL, STATAL, NATIONAL, INTERNATIONAL>;
+
   type User {
     required name: str {
       constraint min_len_value(8);
@@ -77,6 +79,7 @@ module default {
     text: str;
     image: Image;
     caption: Caption;
+    region: Region;
     required created_at: datetime {
       readonly := true;
       rewrite insert using (datetime_of_statement());

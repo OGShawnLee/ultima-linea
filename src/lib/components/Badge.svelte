@@ -9,7 +9,7 @@
   {#if earth}
     <Earth size={18} strokeWidth={1.75} />
   {/if}
-  <span class="text-xs font-semibold">
+  <span class="text-xs">
     {badge}
   </span>
 </a>

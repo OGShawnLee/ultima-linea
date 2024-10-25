@@ -5,7 +5,7 @@ import { MAX_CONTENT_LENGTH, MAX_SUMMARY_LENGTH, MAX_TEXT_LENGTH, MAX_TITLE_LENG
 import { f } from "$lib";
 
 export type CardDraft = 
-  Pick<Draft, "id" | "title" | "summary" | "updated_at"> 
+  Pick<Draft, "id" | "title" | "summary" | "region" | "updated_at"> 
   & { caption: Nullish<CardCaption> } 
   & { image: Nullish<CardImage> };
 

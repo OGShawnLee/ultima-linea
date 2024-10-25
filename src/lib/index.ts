@@ -30,6 +30,14 @@ export function f(input: string, ...args: any[]) {
   return input.replace(/\{(\d+)\}/g, (_, i) => args[i]);
 }
 
+export function getEntriesOf<T extends object>(object: T) {
+	return Object.entries(object) as [keyof T, T[keyof T]][];
+}
+
+export function getKeysOf<T extends object>(obj: T): (keyof T)[] {
+	return Object.keys(obj) as (keyof T)[];
+}
+
 export async function useAwait<Data, Error = unknown>(fn: () => Promise<Data>): Promise<Result<Data, Error>> {
   try {
     return { data: await fn(), failed: false } as Result<Data, Error>;

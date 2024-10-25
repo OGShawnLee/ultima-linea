@@ -28,6 +28,9 @@
     {#if label}
       <figcaption class="{padded ? 'md:px-16' : 'px-4'} text-xs leading-loose text-lesser-light dark:text-lesser font-medium">
         {caption?.image_label}
+        {#if caption?.image_src}
+          (Fuente: {caption.image_src}).
+        {/if}
       </figcaption>
     {/if}
   </figure>

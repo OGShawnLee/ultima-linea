@@ -1,4 +1,5 @@
 import type { AuthToken } from "@auth/schema";
+import type { CategoriesData } from "@categories/schema";
 import type { CardDraft, DraftData } from "@draft/schema";
 import type { CaptionData, ImageData } from "@picture/schema";
 import e, { getClient } from "@db";
@@ -14,8 +15,18 @@ const CommonDraftShape = e.shape(e.Draft, () => ({
     text: true,
     image: { image_key: true, image_url: true },
     caption: { image_label: true, image_src: true },
+    region: true,
     updated_at: true,
 }));
+
+export function addDraftCategories(id: string, data: CategoriesData, currentUser: AuthToken) {
+  return useAwait(() => (
+    e.update(e.Draft, () => ({
+      set: { region: data.region },
+      filter_single: { id, user: buildUserRelationQuery(currentUser) },
+    })).run(getClient())
+  ))
+}
 
 export function addDraftPicture(id: string, data: CaptionData & ImageData, currentUser: AuthToken) {
   const image = buildCreateImageQuery(data);

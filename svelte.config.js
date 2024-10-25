@@ -15,6 +15,7 @@ const config = {
 		alias: {
 			"@article": "src/lib/features/article",
 			"@auth": "src/lib/features/auth",
+			"@categories": "src/lib/features/categories",
 			"@components": "src/lib/components",
 			"@draft": "src/lib/features/draft",
 			"@editor": "src/lib/features/editor",

@@ -1,4 +1,5 @@
 <script>
+	import { getRegionLabel } from "@categories/schema";
 	import { Bookmark, ClipboardPen, Share2 as Share } from 'lucide-svelte';
 	import { Button, Badge, Main, Picture, Time } from '@components';
 	import { Draft } from '@draft/components';
@@ -25,7 +26,9 @@
 			<article class="lg:col-span-8 grid gap-12">
 				<header class="md:px-16 grid gap-6">
 					<div class="flex items-center gap-4 flex-wrap">
-						<Badge badge="Nacional" earth />
+						{#if data.page.draft.region}
+							<Badge badge={getRegionLabel(data.page.draft.region)} earth />
+						{/if}
 						<Badge badge="Política" />
 					</div>
 					<h1 class="heading-1">

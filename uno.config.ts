@@ -13,7 +13,7 @@ export default defineConfig({
     "button--rectangle-12": "h-12 px-4",
     "button--background": "bg-ground-3-light dark:bg-ground-3 text-summit-light dark:text-summit hover:(bg-ground-4-light dark:bg-ground-4)",
     "button--background-less": "bg-transparent text-summit-light dark:text-summit hover:(text-lesser-light darK:text-lesser)",
-    "button--inverse": "bg-ground-0-light dark:bg-ground-0 border border-ground-3-light dark:border-ground-3 rounded-xl hover:(bg-ground-4 text-white)",
+    "button--inverse": "bg-ground-0-light dark:bg-ground-0 border border-ground-3-light dark:border-ground-3 rounded-lg hover:(bg-ground-3-light text-summit-light dark:(bg-ground-3 text-white))",
     // @Dialog
     "dialog": "fixed z-10 inset-0 top-0 max-h-100vh overflow-y-auto sm:(inset-initial top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 max-h-[calc(100vh-5rem)] w-xl)",
     "dialog-overlay": "fixed z-10 inset-0 bg-ground-0-light/90 dark:bg-ground-0/90",

@@ -1,9 +1,10 @@
 import auth from "@auth/server";
 import { ConstraintViolationError } from "edgedb";
+import { CategoriesSchema } from "@categories/schema";
 import { DraftSchema } from "@draft/schema";
 import { PictureSchema } from "@picture/schema";
 import { uploadFile, uploadthing } from "@server/uploadthing";
-import { addDraftPicture, createDraft, findDraft, updateDraft, updateDraftPicture } from "@draft/server";
+import { addDraftCategories, addDraftPicture, createDraft, findDraft, updateDraft, updateDraftPicture } from "@draft/server";
 import { fail, setError, superValidate } from "sveltekit-superforms";
 import { valibot } from "sveltekit-superforms/adapters"
 import { error, redirect } from "@sveltejs/kit";
@@ -21,6 +22,7 @@ export async function load(event) {
     if (draft.data) {
       return {
         hasDraft: true,
+        categories: await superValidate({ region: draft.data.region ?? "NATIONAL" }, valibot(CategoriesSchema)),
         form: await superValidate(draft.data, valibot(DraftSchema)),
         picture: await superValidate({
           "image-label": draft.data.caption?.image_label ?? draft.data.title + ".",
@@ -36,6 +38,7 @@ export async function load(event) {
 
   return {
     hasDraft: false,
+    categories: await superValidate(valibot(CategoriesSchema)),
     form: await superValidate(valibot(DraftSchema)),
     picture: await superValidate(valibot(PictureSchema))
   }
@@ -102,7 +105,7 @@ export const actions = {
       if (form.data["image-key"]) {
         // TODO: ADD CRON JOB TO DELETE ORPHAN IMAGES
         useAPI("/api/picture/orphan", null, event.fetch);
-      } 
+      }
 
       const draft = await addDraftPicture(event.params.id, {
         "image-label": form.data["image-label"],
@@ -115,8 +118,8 @@ export const actions = {
         uploadthing.deleteFiles([image.data.key]);
         return fail(500, { form });
       }
-    } 
-    
+    }
+
     if (form.data["image-key"]) {
       const draft = await updateDraftPicture(event.params.id, {
         "image-label": form.data["image-label"],
@@ -130,6 +133,24 @@ export const actions = {
       if (isNullish(draft.data)) {
         return fail(500, { form });
       }
+    }
+  },
+  "upload-categories": async (event) => {
+    const currentUser = auth.getAuthToken(event.cookies);
+    const form = await superValidate(event, valibot(CategoriesSchema));
+
+    if (form.valid === false) {
+      return fail(400, form);
+    }
+
+    if (isNullish(event.params.id)) {
+      throw error(400, "No se ha especificado un borrador para añadir la imagen.");
+    }
+
+    const draft = await addDraftCategories(event.params.id, form.data, currentUser);
+
+    if (draft.failed) {
+      throw error(500, "No ha sido posible actualizar las categorías de su borrador, intente más tarde");
     }
   }
 }

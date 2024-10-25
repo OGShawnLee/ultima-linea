@@ -1,6 +1,7 @@
 <script lang="ts">
 	import type { CardDraft } from '@draft/schema';
-	import { Button, Picture, Time } from '@components';
+	import { getRegionLabel } from '@categories/schema';
+	import { Badge, Button, Picture, Time } from '@components';
 	import { ClipboardPen, ClipboardX } from 'lucide-svelte';
 	import { enhance } from '$app/forms';
 	import { createEventDispatcher } from 'svelte';
@@ -22,6 +23,11 @@
 			? 'bg-ground-1-light dark:bg-ground-1'
 			: 'bg-transparent'} rounded-xl"
 	>
+		{#if draft.region}
+			<div class="flex items-center gap-2">
+				<Badge earth badge={getRegionLabel(draft.region)} />
+			</div>
+		{/if}
 		<a href="/dashboard/draft/{draft.id}" class="anchor-hover heading">
 			<h2 class="font-semibold text-2xl">{draft.title}</h2>
 		</a>
