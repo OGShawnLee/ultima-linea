@@ -8,15 +8,16 @@ import { buildUserRelationQuery } from "@user/server";
 import { buildCreateCaptionQuery, buildCreateImageQuery } from "@picture/server";
 
 const CommonDraftShape = e.shape(e.Draft, () => ({
-    id: true,
-    title: true,
-    summary: true,
-    content: true,
-    text: true,
-    image: { image_key: true, image_url: true },
-    caption: { image_label: true, image_src: true },
-    region: true,
-    updated_at: true,
+  id: true,
+  title: true,
+  summary: true,
+  content: true,
+  text: true,
+  image: { image_key: true, image_url: true },
+  caption: { image_label: true, image_src: true },
+  region: true,
+  can_be_published: true,
+  updated_at: true,
 }));
 
 export function addDraftCategories(id: string, data: CategoriesData, currentUser: AuthToken) {
@@ -109,7 +110,7 @@ export function findDraftPage(id: string, currentUser: AuthToken) {
       ),
       "and",
       e.op(draft.id, "not in", recent.id)
-    ) 
+    )
   }));
   return useAwait(() => (
     e.select({ draft, recent, more }).run(getClient())
@@ -127,6 +128,31 @@ export function getDrafts(currentUser: AuthToken) {
       filter: e.op(draft.user, "=", buildUserRelationQuery(currentUser))
     })).run(getClient())
   ))
+}
+
+export function publishDraft(id: string, currentUser: AuthToken) {
+  const draft = buildDraftRelationQuery(id, currentUser);
+  return useAwait(() => (
+    e.select(e.update(draft, () => ({
+      set: {
+        article: e.insert(e.News, {
+          title: draft.title,
+          summary: draft.summary,
+          content: draft.content,
+          text: draft.text,
+          region: draft.region,
+          image: draft.image,
+          caption: e.insert(e.Caption, {
+            image_label: draft.caption.image_label,
+            image_src: draft.caption.image_src
+          }),
+          user: draft.user
+        })
+      }
+    })), (draft) => ({
+      article: draft.article
+    })).run(getClient())
+  ));
 }
 
 export function updateDraft(id: string, data: DraftData, currentUser: AuthToken) {

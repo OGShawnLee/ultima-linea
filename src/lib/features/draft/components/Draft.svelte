@@ -1,5 +1,6 @@
 <script lang="ts">
 	import type { CardDraft } from '@draft/schema';
+	import PublishButton from "@draft/components/ButtonPublish.svelte";
 	import { getRegionLabel } from '@categories/schema';
 	import { Badge, Button, Picture, Time } from '@components';
 	import { ClipboardPen, ClipboardX } from 'lucide-svelte';
@@ -37,6 +38,9 @@
 		<Time datetime={draft.updated_at} />
 		<div class="flex items-center gap-2 flex-wrap">
 			<Button href="/dashboard/{draft.id}/editor" icon={ClipboardPen} text="Editar" />
+			{#if draft.can_be_published}
+				<PublishButton id={draft.id} />
+			{/if}
 			<form
 				action="/dashboard?/delete-draft"
 				method="post"

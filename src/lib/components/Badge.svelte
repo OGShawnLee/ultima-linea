@@ -1,8 +1,11 @@
 <script lang="ts">
+  import type { Region } from "@interfaces";
   import { Earth } from "lucide-svelte";
+	import { getRegionLabel } from "@categories/schema";
 
-  export let badge: string;
+  export let badge = "";
   export let earth = false;
+  export let region: Region | undefined = undefined;
 </script>
 
 <a class="button button--background h-8 px-4 rounded-full" href="/">
@@ -10,6 +13,6 @@
     <Earth size={18} strokeWidth={1.75} />
   {/if}
   <span class="text-xs">
-    {badge}
+    {region ? getRegionLabel(region) : badge}
   </span>
 </a>

@@ -2,7 +2,7 @@
 	import { getRegionLabel } from "@categories/schema";
 	import { Bookmark, ClipboardPen, Share2 as Share } from 'lucide-svelte';
 	import { Button, Badge, Main, Picture, Time } from '@components';
-	import { Draft } from '@draft/components';
+	import { ButtonPublish, Draft } from '@draft/components';
 
 	export let data;
 </script>
@@ -57,7 +57,9 @@
 							text="Editar"
 							href="/dashboard/{data.page.draft.id}/editor"
 						/>
-						<Button icon={Share} text="Compartir" />
+						{#if data.page.draft.can_be_published}
+							<ButtonPublish id={data.page.draft.id} />
+						{/if}
 					</div>
 				</header>
 				<Picture image={data.page.draft.image} caption={data.page.draft.caption} label />
