@@ -15,17 +15,31 @@ const CommonArticleShape = e.shape(e.News, () => ({
 }));
 
 export function findArticlePage(id: string) {
-  const news = e.select(e.News, (news) => ({
-    ...CommonArticleShape(news),
+  const article = e.select(e.News, (article) => ({
+    ...CommonArticleShape(article),
     user: {
       name: true,
       display_name: true,
     },
     filter_single: { id },
   }));
+  const recent = e.select(e.News, (article) => ({
+    ...CommonArticleShape(article),
+    user: {
+      name: true,
+      display_name: true,
+    },
+    limit: 3,
+    order_by: {
+      expression: article.created_at,
+      direction: e.DESC,
+    },
+    filter: e.op(article.id, "!=", e.uuid(id)),
+  }))
   return useAwait(() => 
     e.select({
-      news
+      article,
+      recent,
     }).run(getClient())
   );
 }

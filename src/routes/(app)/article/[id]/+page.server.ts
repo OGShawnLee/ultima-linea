@@ -8,7 +8,7 @@ export async function load(event) {
     throw error(500, "No ha sido posible cargar la noticia, intente más tarde.");
   }
 
-  if (page.data.news) {
+  if (page.data.article) {
     return { page: page.data as StrictObject<typeof page.data> };
   }
 
