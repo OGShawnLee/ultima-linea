@@ -1,6 +1,6 @@
 import type { AuthToken } from "@auth/schema";
 import type { CategoriesData } from "@categories/schema";
-import type { CardDraft, DraftData } from "@draft/schema";
+import type { CardDraft, DraftData, DraftState } from "@draft/schema";
 import type { CaptionData, ImageData } from "@picture/schema";
 import e, { getClient } from "@db";
 import { useAwait } from "$lib";
@@ -131,6 +131,41 @@ export function getDrafts(currentUser: AuthToken) {
       filter: e.op(draft.user, "=", buildUserRelationQuery(currentUser))
     })).run(getClient())
   ))
+}
+
+export function getDraftsByState(currentUser: AuthToken, state: DraftState) {
+  return useAwait<CardDraft[]>(() => (
+    e.select(e.Draft, (draft) => {
+      let filter = e.op(draft.user, "=", buildUserRelationQuery(currentUser));
+
+      if (state === "PUBLISHABLE") {
+        filter = e.op(filter, "and", e.op(draft.is_published, "=", false));
+        filter = e.op(filter, "and", e.op(draft.can_be_published, "=", true));
+      }
+
+      if (state === "PUBLISHED") {
+        filter = e.op(filter, "and", e.op(draft.is_published, "=", true));
+      }
+
+      if (state === "UNPUBLISHED") {
+        filter = e.op(filter, "and", e.op(draft.is_published, "=", false));
+      }
+
+      if (state === "UPDATABLE") {
+        filter = e.op(filter, "and", e.op(draft.is_published, "=", true));
+        filter = e.op(filter, "and", e.op(draft.is_different_from_article, "=", true));
+      }
+
+      return {
+        ...CommonDraftShape(draft),
+        order_by: {
+          expression: draft.updated_at,
+          direction: e.DESC
+        },
+        filter
+      }
+    }).run(getClient())
+  ));
 }
 
 export function publishDraft(id: string, currentUser: AuthToken) {

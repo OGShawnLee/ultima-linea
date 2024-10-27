@@ -1,19 +1,21 @@
 import auth from '@auth/server';
 import { AuthTokenSchema } from '@auth/schema';
-import { deleteDraft, getDrafts, publishDraft, updateDraftArticle } from '@draft/server';
-import { fail, superValidate } from 'sveltekit-superforms';
+import { DraftFiltersSchema } from '@draft/schema';
+import { deleteDraft, getDrafts, getDraftsByState, publishDraft, updateDraftArticle } from '@draft/server';
+import { fail, setError, superValidate } from 'sveltekit-superforms';
 import { valibot } from 'sveltekit-superforms/adapters';
 import { error, redirect } from '@sveltejs/kit';
 import { ConstraintViolationError } from 'edgedb';
 
 export async function load(event) {
-  const drafts = await getDrafts(auth.getAuthToken(event.cookies));
+  const form = await superValidate(event.url.searchParams, valibot(DraftFiltersSchema));
+  const drafts = await getDraftsByState(auth.getAuthToken(event.cookies), form.data["draft-state"]);
 
   if (drafts.failed) {
     throw error(500, "No ha sido posible cargar sus borradores, intente más tarde.");
   }
 
-  return { drafts: drafts.data };
+  return { drafts: drafts.data, form, "draft-state": form.data["draft-state"] };
 }
 
 export const actions = {

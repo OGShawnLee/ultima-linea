@@ -1,8 +1,29 @@
 import type { Draft } from "@interfaces";
 import type { CardCaption, CardImage } from "@picture/schema";
-import { type InferOutput, maxLength, minLength, nullish, object, pipe, string, transform, trim } from "valibot";
+import { type InferOutput, maxLength, minLength, nullable, nullish, object, picklist, pipe, string, transform, trim } from "valibot";
 import { MAX_CONTENT_LENGTH, MAX_SUMMARY_LENGTH, MAX_TEXT_LENGTH, MAX_TITLE_LENGTH, MIN_TITLE_LENGTH } from "@article/schema";
-import { f } from "$lib";
+import { f, getKeysOf } from "$lib";
+
+export type DraftState = "ALL" | "PUBLISHABLE" | "PUBLISHED" | "UNPUBLISHED" | "UPDATABLE";
+
+export const DraftStateEnumeration: Record<DraftState, string> = {
+  ALL: "Todos",
+  PUBLISHABLE: "Publicables",
+  PUBLISHED: "Publicados",
+  UNPUBLISHED: "Sin Publicar",
+  UPDATABLE: "Actualizables"
+};
+
+const DraftStateSchema = picklist(
+  getKeysOf(DraftStateEnumeration),
+  "El estado de borrador debe ser uno de los valores determinados."
+)
+
+export const DraftFiltersSchema = object({
+  "draft-state": nullable(DraftStateSchema, "ALL")
+});
+
+export type DraftFiltersData = InferOutput<typeof DraftFiltersSchema>;
 
 export type CardDraft =
   Pick<Draft, "id" | "title" | "summary" | "region" | "can_be_published" | "is_different_from_article" | "is_published" | "updated_at">
