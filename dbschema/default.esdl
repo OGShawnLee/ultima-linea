@@ -147,6 +147,18 @@ module default {
           and exists .region 
       );
     };
+    is_different_from_article := (
+      select (
+        .summary != .article.summary
+        or .content != .article.content
+        or .text != .article.text
+        or .image != .article.image
+        or .caption.image_label != .article.caption.image_label
+        or .caption.image_src != .article.caption.image_src
+        or .region != .article.region
+      )
+    );
+    is_published := (select exists .article);
 
     constraint exclusive on (.clean_title);
   }

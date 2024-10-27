@@ -2,7 +2,7 @@
 	import { getRegionLabel } from "@categories/schema";
 	import { Bookmark, ClipboardPen, Share2 as Share } from 'lucide-svelte';
 	import { Button, Badge, Main, Picture, Time } from '@components';
-	import { ButtonPublish, Draft } from '@draft/components';
+	import { ButtonPublish, ButtonUpdate, ButtonViewArticle, Draft } from '@draft/components';
 
 	export let data;
 </script>
@@ -52,14 +52,14 @@
 					</div>
 					<div class="flex items-center justify-end gap-2">
 						<Button icon={Bookmark} size="size-10" label="Añadir a Marcardores" />
+						<ButtonViewArticle draft={data.page.draft} />
+						<ButtonPublish draft={data.page.draft} />
+						<ButtonUpdate draft={data.page.draft} />
 						<Button
 							icon={ClipboardPen}
 							text="Editar"
 							href="/dashboard/{data.page.draft.id}/editor"
 						/>
-						{#if data.page.draft.can_be_published}
-							<ButtonPublish id={data.page.draft.id} />
-						{/if}
 					</div>
 				</header>
 				<Picture image={data.page.draft.image} caption={data.page.draft.caption} label />

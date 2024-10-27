@@ -4,10 +4,11 @@ import { type InferOutput, maxLength, minLength, nullish, object, pipe, string, 
 import { MAX_CONTENT_LENGTH, MAX_SUMMARY_LENGTH, MAX_TEXT_LENGTH, MAX_TITLE_LENGTH, MIN_TITLE_LENGTH } from "@article/schema";
 import { f } from "$lib";
 
-export type CardDraft = 
-  Pick<Draft, "id" | "title" | "summary" | "region" | "can_be_published" | "updated_at"> 
-  & { caption: Nullish<CardCaption> } 
-  & { image: Nullish<CardImage> };
+export type CardDraft =
+  Pick<Draft, "id" | "title" | "summary" | "region" | "can_be_published" | "is_different_from_article" | "is_published" | "updated_at">
+  & { caption: Nullish<CardCaption> }
+  & { image: Nullish<CardImage> }
+  & { article: { id: string } | null };
 
 function reduceSpacing(input: string) {
   return input.replace(/\s+/g, " ");

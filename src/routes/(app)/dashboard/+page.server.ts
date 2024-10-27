@@ -1,6 +1,6 @@
 import auth from '@auth/server';
 import { AuthTokenSchema } from '@auth/schema';
-import { deleteDraft, getDrafts, publishDraft } from '@draft/server';
+import { deleteDraft, getDrafts, publishDraft, updateDraftArticle } from '@draft/server';
 import { fail, superValidate } from 'sveltekit-superforms';
 import { valibot } from 'sveltekit-superforms/adapters';
 import { error, redirect } from '@sveltejs/kit';
@@ -54,5 +54,25 @@ export const actions = {
     }
 
     throw error(500, 'No se pudo publicar el borrador, intente de nuevo más tarde.');
+  },
+  "update-article": async (event) => {
+    const currentUser = auth.getAuthToken(event.cookies);
+    const form = await superValidate(event, valibot(AuthTokenSchema));
+
+    if (form.valid === false) {
+      return fail(400, form);
+    }
+
+    const article = await updateDraftArticle(form.data.id, currentUser);
+
+    if (article.failed) {
+      throw error(500, 'No se pudo actualizar el artículo, intente de nuevo más tarde.');
+    }
+
+    if (article.data) {
+      throw redirect(303, "/article/" + article.data.id);
+    }
+
+    throw error(500, 'No se pudo actualizar el artículo, intente de nuevo más tarde.');
   }
 }

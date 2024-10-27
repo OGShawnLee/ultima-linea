@@ -9,6 +9,7 @@ import { buildCreateCaptionQuery, buildCreateImageQuery } from "@picture/server"
 
 const CommonDraftShape = e.shape(e.Draft, () => ({
   id: true,
+  article: { id: true },
   title: true,
   summary: true,
   content: true,
@@ -17,6 +18,8 @@ const CommonDraftShape = e.shape(e.Draft, () => ({
   caption: { image_label: true, image_src: true },
   region: true,
   can_be_published: true,
+  is_different_from_article: true,
+  is_published: true,
   updated_at: true,
 }));
 
@@ -160,6 +163,28 @@ export function updateDraft(id: string, data: DraftData, currentUser: AuthToken)
     e.update(e.Draft, () => ({
       set: data,
       filter_single: { id, user: buildUserRelationQuery(currentUser) }
+    })).run(getClient())
+  ))
+}
+
+export function updateDraftArticle(id: string, currentUser: AuthToken) {
+  const draft = buildDraftRelationQuery(id, currentUser);
+  return useAwait(() => (
+    e.update(draft.article, (article) => ({
+      set: {
+        title: draft.title,
+        summary: draft.summary,
+        content: draft.content,
+        text: draft.text,
+        region: draft.region,
+        image: draft.image,
+        caption: e.update(article.caption, () => ({
+          set: {
+            image_label: draft.caption.image_label,
+            image_src: draft.caption.image_src
+          }
+        }))
+      }
     })).run(getClient())
   ))
 }

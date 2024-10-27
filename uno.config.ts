@@ -6,6 +6,7 @@ export default defineConfig({
     "anchor-hover": "hover:text-marque-light hover:dark:text-marque",
     // @Button
     "button": "flex items-center justify-center gap-2",
+    "button-dropdown-item": "button h-10 w-full justify-left px-3 bg-transparent data-[highlighted]:(bg-ground-3-light dark:bg-ground-3) outline-none text-sm text-summit-light dark:text-summit",
     "button--square-8": "size-8",
     "button--square-10": "size-10",
     "button--square-12": "size-12",
