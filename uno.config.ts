@@ -48,6 +48,8 @@ export default defineConfig({
       "lesser-light": "#525252",
       "marque": "#38BDF8",
       "marque-light": "#0284C7",
+      "accent": "#FB923C",
+      "accent-light": "#EA580C",
       "summit": "#FFFFFF",
       "summit-light": "#000000",
     },

@@ -24,3 +24,7 @@ export type RegionData = InferOutput<typeof RegionSchema>;
 export function getRegionLabel(region: Region) {
   return RegionEnumeration[region];
 }
+
+export function isRegion(region: unknown): region is Region {
+  return typeof region === "string" && region.toUpperCase() in RegionEnumeration;
+}

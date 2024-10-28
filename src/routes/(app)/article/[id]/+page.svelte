@@ -3,7 +3,6 @@
 	import { Button, Badge, Main, Picture, Time } from '@components';
 	import { Card } from '@article/components';
 	import { Attribution } from '@user/components';
-	import { getRegionLabel } from '@categories/schema';
 	import { takeAndRest } from '$lib';
 
 	export let data;
@@ -39,7 +38,7 @@
 			<article class="xl:col-span-8 grid gap-12">
 				<header class="md:px-16 grid gap-6">
 					<div class="flex items-center gap-4 flex-wrap">
-						<Badge badge={getRegionLabel(data.page.article.region)} earth />
+						<Badge earth region={data.page.article.region} />
 						<Badge badge="Política" />
 					</div>
 					<h1 class="heading-1">
@@ -85,9 +84,9 @@
 	<section
 		class="container--padding py-12 md:py-16 flex flex-col gap-8 bg-ground-1-light dark:bg-ground-1 2xl:rounded-xl"
 	>
-		<header class="section-header">
-			<h2 class="heading-2">Noticias Relacionadas</h2>
-		</header>
+	<header class="section-header">
+		<h2 class="heading-2">Noticias Relacionadas</h2>
+	</header>
 		<div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">
 			{#each { length: 12 } as _}
 				<Card variant="medium" />

@@ -1,6 +1,7 @@
 export { default as Badge } from "./Badge.svelte";
 export { default as Button } from "./Button.svelte";
 export { Dialog } from "./Dialog";
+export { default as Header } from "./Header.svelte";
 export { Input, Uploader } from "./Input";
 export { default as Main } from "./Main.svelte";
 export { default as More } from "./More.svelte";

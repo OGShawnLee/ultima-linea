@@ -23,10 +23,10 @@
 			image={article?.image}
 			rounded="rounded-xl"
 		/>
-		<div class="p-6 grid content-start gap-6 md:pt-12 lg:p-0">
+		<div class="p-6 grid gap-6 md:pt-12 lg:(p-0 content-center)">
 			<header class="contents">
 				<div class="flex items-center gap-4 flex-wrap">
-					<Badge region={article?.region ?? "NATIONAL"} earth />
+					<Badge region={article?.region ?? 'NATIONAL'} earth />
 					<Badge badge="Política" />
 				</div>
 				<a class="anchor-hover heading" href={article?.id ? '/article/' + article.id : '/article'}>
@@ -58,14 +58,14 @@
 			rounded={background ? 'lt-lg:rounded-t-xl lg:rounded-l-lg' : 'rounded-xl'}
 		/>
 		<div
-			class=" p-6 grid content-start gap-6 md:pt-12 lg:p-6"
+			class=" p-6 grid gap-6 md:pt-12 lg:(p-6 content-center)"
 			class:card--background={background}
 			class:rounded-r-xl={background}
 			class:rounded-b-xl={background}
 		>
 			<header class="contents">
 				<div class="flex items-center gap-4 flex-wrap">
-					<Badge region={article?.region ?? "NATIONAL"} earth />
+					<Badge region={article?.region ?? 'NATIONAL'} earth />
 					<Badge badge="Política" />
 				</div>
 				<a class="anchor-hover heading" href={article?.id ? '/article/' + article.id : '/article'}>
@@ -92,7 +92,7 @@
 		<div class="p-8 grid gap-6" class:card--background={background} class:rounded-b-xl={background}>
 			<header class="contents">
 				<div class="flex items-center gap-4 flex-wrap">
-					<Badge region={article?.region ?? "NATIONAL"} earth />
+					<Badge region={article?.region ?? 'NATIONAL'} earth />
 					<Badge badge="Política" />
 				</div>
 				<a class="anchor-hover heading" href={article?.id ? '/article/' + article.id : '/article'}>
@@ -110,7 +110,7 @@
 {/if}
 
 {#if variant === 'medium'}
-	<article>
+	<article class="rounded-xl" class:card--background={background}>
 		<Picture
 			caption={article?.caption}
 			image={article?.image}
@@ -119,7 +119,7 @@
 		<div class="p-8 grid gap-6" class:card--background={background} class:rounded-b-xl={background}>
 			<header class="contents">
 				<div class="flex items-center gap-4 flex-wrap">
-					<Badge region={article?.region ?? "NATIONAL"} earth />
+					<Badge region={article?.region ?? 'NATIONAL'} earth />
 					<Badge badge="Política" />
 				</div>
 				<a class="anchor-hover heading" href={article?.id ? '/article/' + article.id : '/article'}>
@@ -138,7 +138,7 @@
 		<div class="p-8 grid gap-6">
 			<header class="contents">
 				<div class="flex items-center gap-4 flex-wrap">
-					<Badge region={article?.region ?? "NATIONAL"} earth />
+					<Badge region={article?.region ?? 'NATIONAL'} earth />
 					<Badge badge="Política" />
 				</div>
 				<a class="anchor-hover heading" href={article?.id ? '/article/' + article.id : '/article'}>

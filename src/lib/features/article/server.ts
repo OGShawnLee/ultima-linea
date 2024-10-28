@@ -1,5 +1,6 @@
 import e, { getClient } from "@db";
 import { useAwait } from "$lib";
+import type { Region } from "@interfaces";
 
 const CommonArticleShape = e.shape(e.News, () => ({
   id: true,
@@ -42,4 +43,18 @@ export function findArticlePage(id: string) {
       recent,
     }).run(getClient())
   );
+}
+
+export function getArticlesByRegion(region: Region) {
+  return useAwait(() => (
+    e.select(e.News, (article) => ({
+      ...CommonArticleShape(article),
+      limit: 6,
+      order_by: {
+        expression: article.created_at,
+        direction: e.DESC,
+      },
+      filter: e.op(article.region, "=", e.Region[region]),
+    })).run(getClient())
+  ));
 }
