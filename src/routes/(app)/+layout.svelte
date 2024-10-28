@@ -1,8 +1,9 @@
 <script>
 	import { Button } from '@components';
-	import { LogIn, LogOut, Moon, Search, Sun } from 'lucide-svelte';
+	import { SiteButton, SiteMenu } from '@layout';
+	import { Search } from 'lucide-svelte';
 	import { UserState } from '@state';
-	import { mode, toggleMode } from 'mode-watcher';
+	import { LogIn, LogOut } from 'lucide-svelte';
 
 	const currentUser = UserState.getContext();
 </script>
@@ -19,7 +20,7 @@
 					Última Linea
 				</span>
 			</a>
-			<nav class="hidden sm:(flex items-center gap-8)">
+			<nav class="hidden md:(flex items-center gap-8)">
 				<a class="anchor-hover" href="/">Inicio</a>
 				{#if $currentUser}
 					<a class="anchor-hover" href="/dashboard">Dashboard</a>
@@ -27,7 +28,7 @@
 				{/if}
 			</nav>
 		</div>
-		<div class="hidden sm:flex gap-2">
+		<SiteMenu>
 			<Button
 				background={false}
 				href="/search"
@@ -35,18 +36,13 @@
 				label="Buscar Artículos"
 				size="size-10"
 			/>
-			<Button
-				icon={$mode === 'dark' ? Sun : Moon}
-				label={$mode === 'dark' ? 'Activar Modo Claro' : 'Activar Modo Oscuro'}
-				size="size-10"
-				on:click={toggleMode}
-			/>
+			<SiteButton.ToggleMode />
 			{#if $currentUser}
-				<Button href="/auth/sign-out" icon={LogOut} text="Salir"  />
+				<Button href="/auth/sign-out" icon={LogOut} text="Salir" />
 			{:else}
 				<Button href="/auth/sign-in" icon={LogIn} text="Acceder" />
 			{/if}
-		</div>
+		</SiteMenu>
 	</div>
 </header>
 
