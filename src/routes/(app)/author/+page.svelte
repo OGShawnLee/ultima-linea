@@ -1,5 +1,5 @@
 <script>
-	import { Main, Text, Time } from '@components';
+	import { Header, Main, Text, Time } from '@components';
 	import { Card } from '@article/components';
 	import { SocialMedia } from '@user/components';
 </script>
@@ -97,9 +97,7 @@
 	<section
 		class="py-12 md:py-16 container--padding flex flex-col gap-8 bg-ground-1-light dark:bg-ground-1 2xl:rounded-xl"
 	>
-		<header class="section-header">
-			<h2 class="heading-2">Noticias Destacadas</h2>
-		</header>
+		<Header variant="heading-2">Noticias Destacadas</Header>
 		<div class="grid gap-8 md:gap-16">
 			<Card variant="horizontal" />
 			<div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">

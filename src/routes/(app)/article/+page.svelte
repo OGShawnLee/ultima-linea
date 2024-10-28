@@ -1,6 +1,6 @@
 <script>
 	import { Bookmark, Share2 as Share } from 'lucide-svelte';
-	import { Button, Badge, Main, Picture, Time } from '@components';
+	import { Button, Badge, Header, Main, Picture, Time } from '@components';
   import { Card } from "@article/components";
 
 	function handleShare() {
@@ -123,9 +123,9 @@
 				</div>
 			</article>
 			<section class="xl:col-span-4 flex flex-col gap-8">
-				<header class="section-header">
-					<h2 class="heading-2">Ultimas Noticias</h2>
-				</header>
+				<Header variant="heading-2">
+					Últimas Noticias
+				</Header>
 				<div class="xl:hidden">
 					<Card variant="horizontal" background />
 				</div>
@@ -141,9 +141,9 @@
 		</div>
 	</div>
 	<section class="container--padding py-12 md:py-16 flex flex-col gap-8 bg-ground-1-light dark:bg-ground-1 2xl:rounded-xl">
-		<header class="section-header">
-			<h2 class="heading-2">Noticias Relacionadas</h2>
-		</header>
+		<Header variant="heading-2">
+			Noticias Relacionadas
+		</Header>
 		<div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">
 			{#each { length: 12 } as _}
 				<Card variant="medium" />

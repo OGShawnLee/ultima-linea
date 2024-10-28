@@ -1,7 +1,6 @@
 <script>
-	import { getRegionLabel } from "@categories/schema";
-	import { Bookmark, ClipboardPen, Share2 as Share } from 'lucide-svelte';
-	import { Button, Badge, Main, Picture, Time } from '@components';
+	import { Bookmark, ClipboardPen } from 'lucide-svelte';
+	import { Button, Badge, Header, Main, Picture, Time } from '@components';
 	import { ButtonPublish, ButtonUpdate, ButtonViewArticle, Draft } from '@draft/components';
 
 	export let data;
@@ -27,7 +26,7 @@
 				<header class="md:px-16 grid gap-6">
 					<div class="flex items-center gap-4 flex-wrap">
 						{#if data.page.draft.region}
-							<Badge badge={getRegionLabel(data.page.draft.region)} earth />
+							<Badge earth region={data.page.draft.region} />
 						{/if}
 						<Badge badge="Política" />
 					</div>
@@ -71,9 +70,7 @@
 			</article>
 			{#if data.page.recent.length > 0}
 				<section class="hidden lg:(col-span-4 flex flex-col gap-8)">
-					<header class="section-header">
-						<h2 class="heading-2">Ultimos Borradores</h2>
-					</header>
+					<Header variant="heading-2">Ultimos Borradores</Header>
 					<div class="grid gap-8">
 						{#each data.page.recent as draft (draft.id)}
 							<Draft {draft} />
@@ -87,9 +84,7 @@
 		<section
 			class="container--padding py-12 md:py-16 flex flex-col gap-8 bg-ground-1-light dark:bg-ground-1 2xl:rounded-xl"
 		>
-			<header class="section-header">
-				<h2 class="heading-2">Más Borradores</h2>
-			</header>
+			<Header variant="heading-2">Más Borradores</Header>
 			<div style="columns: 3 326px; column-gap: 2rem;">
 				{#each data.page.more as draft (draft.id)}
 					<div class="inline-block mb-8">

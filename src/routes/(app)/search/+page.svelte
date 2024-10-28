@@ -1,11 +1,11 @@
 <script>
-	import { Button } from '@components';
+	import { Button, Header } from '@components';
 	import { Card } from '@article/components';
 	import { Search } from 'lucide-svelte';
 </script>
 
 <svelte:head>
-  <title>Ultima Linea - Busqueda</title>
+	<title>Ultima Linea - Busqueda</title>
 </svelte:head>
 
 <main class="mt-20 container">
@@ -24,21 +24,19 @@
 					type="text"
 					placeholder="Busque por titulo o contenido"
 				/>
-        <div class="hidden md:block">
-          <Button size="h-12" icon={Search} text="Buscar" />
-        </div>
-        <div class="md:hidden">
-          <Button size="size-12" icon={Search} />
-        </div>
+				<div class="hidden md:block">
+					<Button size="h-12" icon={Search} text="Buscar" />
+				</div>
+				<div class="md:hidden">
+					<Button size="size-12" icon={Search} />
+				</div>
 			</div>
 		</form>
 	</section>
 	<section
 		class="py-2 md:py-16 container--padding flex flex-col gap-8 bg-ground-1-light dark:bg-ground-1 2xl:rounded-xl"
 	>
-		<header class="section-header">
-			<h2 class="heading-2">Resultados</h2>
-		</header>
+		<Header variant="heading-2">Resultados</Header>
 		<div class="grid md:grid-cols-2 xl:grid-cols-3 gap-x-4 xl:gap-x-8 gap-8">
 			{#each { length: 6 } as _}
 				<Card variant="medium" />
