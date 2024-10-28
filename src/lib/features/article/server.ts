@@ -45,6 +45,19 @@ export function findArticlePage(id: string) {
   );
 }
 
+export function getArticles() {
+  return useAwait(() => (
+    e.select(e.News, (article) => ({
+      ...CommonArticleShape(article),
+      limit: 7,
+      order_by: {
+        expression: article.created_at,
+        direction: e.DESC,
+      },
+    })).run(getClient())
+  ));
+}
+
 export function getArticlesByRegion(region: Region) {
   return useAwait(() => (
     e.select(e.News, (article) => ({

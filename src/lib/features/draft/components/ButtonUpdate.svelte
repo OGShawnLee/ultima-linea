@@ -35,18 +35,12 @@
 				{builders}
 				{dropdown}
 				icon={ClipboardPaste}
-				label="Actualizar Artículo"
+				label="Publicar Cambios"
 				size="size-10"
 				type="submit"
 			/>
 		{:else}
-			<Button
-				{builders}
-				{dropdown}
-				icon={ClipboardPaste}
-				text="Actualizar Artículo"
-				type="submit"
-			/>
+			<Button {builders} {dropdown} icon={ClipboardPaste} text="Publicar Cambios" type="submit" />
 		{/if}
 	</form>
 {/if}
