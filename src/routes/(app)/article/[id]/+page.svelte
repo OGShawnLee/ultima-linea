@@ -10,7 +10,7 @@
 	function handleShare() {
 		navigator.share({
 			title: data.page.article.title,
-			text: 'Mira la noticia en Ultima Linea.',
+			text: 'Mira la noticia en Última Linea.',
 			url: window.location.href
 		});
 	}
@@ -21,14 +21,14 @@
 
 <svelte:head>
 	<title>
-		{data.page.article.title}
+		{data.page.article.title} - Última Linea
 	</title>
 	<meta name="description" content={data.page.article.summary} />
 	<meta name="og:title" content={data.page.article.title} />
 	<meta name="og:image" content={data.page.article.image.image_url} />
 	<meta name="twitter:card" content="summary" />
 	<meta name="twitter:title" content={data.page.article.title} />
-	<meta name="twitter:description" content="Mira la noticia en Ultima Linea." />
+	<meta name="twitter:description" content="Mira la noticia en Última Linea." />
 	<meta name="twitter:image" content={data.page.article.image.image_url} />
 </svelte:head>
 

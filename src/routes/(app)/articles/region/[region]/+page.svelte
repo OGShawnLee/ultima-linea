@@ -6,13 +6,13 @@
 </script>
 
 <svelte:head>
-  <title> Noticias {data.label} - Ultima Linea</title>
+  <title> Noticias {data.label} - Última Linea</title>
   <meta name="description" content="Noticias {data.label}" />
   <meta name="og:title" content="Noticias {data.label}" />
   <meta name="og:image" content={data.articles[0].image.image_url} />
   <meta name="twitter:card" content="summary" />
   <meta name="twitter:title" content="Noticias {data.label}" />
-  <meta name="twitter:description" content="Mira las noticias {data.label} en Ultima Linea." />
+  <meta name="twitter:description" content="Mira las noticias {data.label} en Última Linea." />
   <meta name="twitter:image" content={data.articles[0].image.image_url} />
 </svelte:head>
 

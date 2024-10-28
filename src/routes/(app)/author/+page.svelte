@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>Luis Donaldo Ortiz García - Ultima Linea</title>
+	<title>Luis Donaldo Ortiz García - Última Linea</title>
 	<link href="https://unpkg.com/boxicons@2.1.4/css/boxicons.min.css" rel="stylesheet" />
 </svelte:head>
 

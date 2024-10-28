@@ -16,7 +16,7 @@
 				<span
 					class="uppercase text-summit-light dark:text-summit text-2xl font-black tracking-tight"
 				>
-					Ultima Linea
+					Última Linea
 				</span>
 			</a>
 			<nav class="hidden sm:(flex items-center gap-8)">

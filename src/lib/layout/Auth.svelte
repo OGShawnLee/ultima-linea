@@ -9,13 +9,13 @@
 </script>
 
 <svelte:head>
-	<title>Ultima Linea - {title}</title>
+	<title>{title} - Última Linea</title>
 </svelte:head>
 
 <main class="min-h-screen px-2 sm:px-0 py-12 md:grid place-content-center gap-0.5">
 	<div class="h-16 px-8 flex items-center">
 		<a href="/">
-			<span class="uppercase text-summit-light dark:text-summit text-2xl font-black tracking-tight"> Ultima Linea </span>
+			<span class="uppercase text-summit-light dark:text-summit text-2xl font-black tracking-tight"> Última Linea </span>
 		</a>
 	</div>
 	<div class="md:w-xl flex flex-col bg-ground-1-light dark:bg-ground-1 rounded-xl border border-ground-3-light dark:border-ground-3">

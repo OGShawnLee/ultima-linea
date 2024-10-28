@@ -5,7 +5,7 @@
 </script>
 
 <svelte:head>
-	<title>Ultima Linea - Busqueda</title>
+	<title>Busqueda - Última Linea</title>
 </svelte:head>
 
 <main class="mt-20 container">

@@ -88,7 +88,7 @@
 </script>
 
 <svelte:head>
-	<title>Editor - Ultima Linea</title>
+	<title>Editor - Última Linea</title>
 </svelte:head>
 
 <Dialog.Root bind:open={openPicture} title="Añadir Imagen">

@@ -24,7 +24,7 @@
 </script>
 
 <svelte:head>
-	<title>Dashboard - Ultima Linea</title>
+	<title>Dashboard - Última Linea</title>
 </svelte:head>
 
 <Main>

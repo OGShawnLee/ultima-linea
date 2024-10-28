@@ -7,7 +7,7 @@
 		navigator.share({
 			title:
 				'El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017 el año en que AMLO los llamó, pero ellos no le hicieron caso',
-			text: 'Mira la noticia en Ultima Linea.',
+			text: 'Mira la noticia en Última Linea.',
 			url: window.location.href
 		});
 	}
@@ -16,7 +16,7 @@
 <svelte:head>
 	<title>
 		El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017 el
-		año en que AMLO los llamó, pero ellos no le hicieron caso
+		año en que AMLO los llamó, pero ellos no le hicieron caso - Última Linea
 	</title>
 	<meta name="description" content="Después de muchos años, el PRD ha perdido su registro a nivel nacional." />
 	<meta
@@ -32,7 +32,7 @@
 		name="twitter:title"
 		content="El PRD pierde su registro a nivel nacional. 2012, el año que López Obrador dejó el PRD. 2017 el año en que AMLO los llamó, pero ellos no le hicieron caso"
 	/>
-	<meta name="twitter:description" content="Mira la noticia en Ultima Linea." />
+	<meta name="twitter:description" content="Mira la noticia en Última Linea." />
 	<meta
 		name="twitter:image"
 		content="https://utfs.io/f/6843c429-5103-48ae-a99f-833082026e41-57p9e8.jpeg"
