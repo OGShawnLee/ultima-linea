@@ -21,11 +21,13 @@ const config = {
 			"@editor": "src/lib/features/editor",
 			"@layout": "src/lib/layout",
 			"@picture": "src/lib/features/picture",
+			"@search": "src/lib/features/search",
 			"@schema": "src/lib/schema",
 			"@server": "src/lib/server",
 			"@state": "src/lib/state",
 			"@db": "src/lib/server/db",
 			"@interfaces": "src/lib/interfaces",
+			"@queries": "src/lib/queries",
 			"@user": "src/lib/features/user",
 		}
 	}

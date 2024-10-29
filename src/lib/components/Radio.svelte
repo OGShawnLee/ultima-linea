@@ -10,9 +10,9 @@
   const entries = getEntriesOf(enumeration);
 </script>
 
-<RadioGroup.Root class="flex items-center gap-2" orientation="horizontal" bind:value>
+<RadioGroup.Root class="flex items-center sm:justify-center gap-2" orientation="horizontal" bind:value>
   {#each entries as [value, label]}
-    <RadioGroup.Item class="button button--rectangle-10 button--inverse data-[state=checked]:button--background" value={value}>
+    <RadioGroup.Item class="button button--rectangle-10 button--inverse min-w-max data-[state=checked]:button--background" value={value}>
       <RadioGroup.ItemIndicator asChild let:checked>
         {#if checked}
           <svelte:component this={BadgeCheck} strokeWidth={1.5} />
