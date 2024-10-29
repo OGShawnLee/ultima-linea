@@ -4,14 +4,15 @@
 	"private": true,
 	"scripts": {
 		"dev": "vite dev",
-		"build": "pnpm generate && vite build",
+		"build": "pnpm gen && vite build",
 		"preview": "vite preview",
 		"check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
 		"check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch",
 		"lint": "prettier --check .",
 		"format": "prettier --write .",
 		"migrate": "edgedb migration create && edgedb migration apply && pnpm run generate",
-		"generate": "npx @edgedb/generate edgeql-js --output-dir src/lib/edgeql-js && npx @edgedb/generate interfaces --file src/lib/interfaces.ts",
+		"gen": "npx @edgedb/generate edgeql-js --output-dir src/lib/edgeql-js && npx @edgedb/generate queries --file src/lib/queries && npx @edgedb/generate interfaces --file src/lib/interfaces.ts",
+		"gen-queries": "npx @edgedb/generate queries --file src/lib/queries",
 		"start": "edgedb instance start -I ultima-linea",
 		"stop": "edgedb instance stop -I ultima-linea"
 	},
