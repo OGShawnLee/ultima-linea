@@ -32,6 +32,7 @@ export function findUserByEmail(email: string) {
       display_name: true,
       email: true,
       encrypted_password: true,
+      refresh_token_version: true,
       created_at: true,
       filter_single: { email }
     })).run(getClient());

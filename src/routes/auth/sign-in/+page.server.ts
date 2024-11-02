@@ -20,16 +20,16 @@ export const actions = {
     }
 
     const user = await findUserByEmail(form.data.email);
-  
+
     if (user.failed) {
       return fail(500, form);
     }
-    
+
     if (user.data) {
       const match = await hasPasswordMatch(form.data.password, user.data.encrypted_password);
 
       if (match) {
-        auth.setAuthCookie(event.cookies, { id: user.data.id });
+        auth.signIn(event.cookies, { id: user.data.id }, user.data.refresh_token_version);
         throw redirect(303, "/");
       }
 

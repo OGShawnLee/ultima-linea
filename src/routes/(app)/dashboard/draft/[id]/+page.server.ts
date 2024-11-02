@@ -3,7 +3,7 @@ import { findDraftPage } from "@draft/server";
 import { error } from "@sveltejs/kit";
 
 export async function load(event) {
-  const currentUser = auth.getAuthToken(event.cookies);  
+  const currentUser = await auth.getAuth(event.cookies);  
   const page = await findDraftPage(event.params.id, currentUser);
 
   if (page.failed) {

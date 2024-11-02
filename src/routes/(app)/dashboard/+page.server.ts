@@ -9,7 +9,7 @@ import { ConstraintViolationError } from 'edgedb';
 
 export async function load(event) {
   const form = await superValidate(event.url.searchParams, valibot(DraftFiltersSchema));
-  const drafts = await getDraftsByState(auth.getAuthToken(event.cookies), form.data["draft-state"]);
+  const drafts = await getDraftsByState(await auth.getAuth(event.cookies), form.data["draft-state"]);
 
   if (drafts.failed) {
     throw error(500, "No ha sido posible cargar sus borradores, intente más tarde.");
@@ -20,7 +20,7 @@ export async function load(event) {
 
 export const actions = {
   "delete-draft": async (event) => {
-    const currentUser = auth.getAuthToken(event.cookies);
+    const currentUser = await auth.getAuth(event.cookies);
     const form = await superValidate(event, valibot(AuthTokenSchema));
 
     if (form.valid === false) {
@@ -34,7 +34,7 @@ export const actions = {
     }
   },
   "publish-draft": async (event) => {
-    const currentUser = auth.getAuthToken(event.cookies);
+    const currentUser = await auth.getAuth(event.cookies);
     const form = await superValidate(event, valibot(AuthTokenSchema));
 
     if (form.valid === false) {
@@ -58,7 +58,7 @@ export const actions = {
     throw error(500, 'No se pudo publicar el borrador, intente de nuevo más tarde.');
   },
   "update-article": async (event) => {
-    const currentUser = auth.getAuthToken(event.cookies);
+    const currentUser = await auth.getAuth(event.cookies);
     const form = await superValidate(event, valibot(AuthTokenSchema));
 
     if (form.valid === false) {

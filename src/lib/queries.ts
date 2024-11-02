@@ -2,6 +2,48 @@
 
 import type {Executor} from "edgedb";
 
+export type HandleSearchArgs = {
+  readonly "term": string;
+};
+
+export type HandleSearchReturns = Array<{
+  "id": string;
+  "title": string;
+  "summary": string;
+  "content": string;
+  "image": {
+    "image_key": string;
+    "image_url": string;
+  };
+  "caption": {
+    "image_label": string;
+    "image_src": string;
+  };
+  "region": ("LOCAL" | "STATAL" | "NATIONAL" | "INTERNATIONAL");
+  "created_at": Date;
+  "updated_at": Date;
+  "score": number;
+}>;
+
+export function handleSearch(client: Executor, args: HandleSearchArgs): Promise<HandleSearchReturns> {
+  return client.query(`\
+with matches := (fts::search(News, <str>$term, language := 'spa')) 
+select matches.object {
+  id, 
+  title,
+  summary,
+  content, 
+  image: { image_key, image_url },
+  caption: { image_label, image_src },
+  region,
+  created_at,
+  updated_at,
+  score := matches.score
+} order by matches.score desc;`, args);
+
+}
+
+
 export type HandleSearchWithRegionArgs = {
   readonly "term": string;
   readonly "region": ("LOCAL" | "STATAL" | "NATIONAL" | "INTERNATIONAL");
@@ -41,47 +83,5 @@ select matches.object {
   updated_at,
   score := matches.score
 } filter .region = <Region>$region order by matches.score desc;`, args);
-
-}
-
-
-export type HandleSearchArgs = {
-  readonly "term": string;
-};
-
-export type HandleSearchReturns = Array<{
-  "id": string;
-  "title": string;
-  "summary": string;
-  "content": string;
-  "image": {
-    "image_key": string;
-    "image_url": string;
-  };
-  "caption": {
-    "image_label": string;
-    "image_src": string;
-  };
-  "region": ("LOCAL" | "STATAL" | "NATIONAL" | "INTERNATIONAL");
-  "created_at": Date;
-  "updated_at": Date;
-  "score": number;
-}>;
-
-export function handleSearch(client: Executor, args: HandleSearchArgs): Promise<HandleSearchReturns> {
-  return client.query(`\
-with matches := (fts::search(News, <str>$term, language := 'spa')) 
-select matches.object {
-  id, 
-  title,
-  summary,
-  content, 
-  image: { image_key, image_url },
-  caption: { image_label, image_src },
-  region,
-  created_at,
-  updated_at,
-  score := matches.score
-} order by matches.score desc;`, args);
 
 }

@@ -2,167 +2,244 @@ import type { Result } from "$lib";
 import type { Cookies, Handle } from "@sveltejs/kit";
 import JWT from "jsonwebtoken";
 import BCrypt from "bcrypt";
-import { redirect } from "@sveltejs/kit";
+import { error, redirect } from "@sveltejs/kit";
 import { isNullish, useAwait, useCatch } from "$lib";
+import { number, object, safeParse, string } from "valibot";
 
-type Errors = "NOT-SIGNED" | "INVALID";
-
-interface Configuration<Payload extends object, User extends object> {
-	ACCESS_TOKEN: string;
-	AUTH_COOKIE: string;
-	expiresIn: string;
-	isValidToken(cookie: unknown): cookie is Payload;
-	protectedRoutes: string[];
-	findCurrentUser(payload: Payload): Promise<User | null>;
-	checkAuthorization(payload: Payload, id: string): boolean;
-	handle: {
-		authRoutes: string[];
-		signInRoute: string;
-	};
+interface Payload {
+  id: string;
 }
 
-interface AuthClient<Payload extends object, User extends object> {
-	createAuthToken(payload: Payload): string;
-	deleteAuthCookie(cookies: Cookies): void;
-	getAuthToken(cookies: Cookies): Payload;
-	findAuthToken(cookies: Cookies): Result<Payload, Errors>;
-	findCurrentUser(cookie: Cookies): Promise<Result<User | null, string>>;
-	getCurrentUser(cookies: Cookies): Promise<User>;
-	setAuthCookie(cookies: Cookies, payload: Payload): Payload;
-	handle: Handle;
-	signInRoute: string;
-	can(cookies: Cookies, id: string): Promise<boolean>;
-	bcrypt: {
-		hash(password: string): Promise<string>;
-		compare(password: string, hash: string): Promise<boolean>;
-	};
+interface RefreshState extends Payload {
+  refresh_token_version: number;
 }
 
-function createAuthClient<Payload extends object, User extends object>({
-	ACCESS_TOKEN,
-	AUTH_COOKIE,
-	expiresIn,
-	isValidToken,
-	protectedRoutes,
-	findCurrentUser,
-	checkAuthorization,
-	handle: { signInRoute, authRoutes }
-}: Configuration<Payload, User>): AuthClient<Payload, User> {
-	function createAuthToken(payload: Payload): string {
-		return JWT.sign(payload, ACCESS_TOKEN, { expiresIn });
-	}
+const RefreshStateSchema = object({
+  id: string(),
+  refresh_token_version: number()
+});
 
-	function deleteAuthCookie(cookies: Cookies): void {
-		cookies.set(AUTH_COOKIE, "", {
-			expires: new Date(Date.now() - 3600),
-			httpOnly: true,
-			path: "/"
-		});
-	}
+type PayloadResult<T> = { data: null; state: "ANON" } | { data: T, state: "FRESH" | "STALE" };
 
-	function findAuthToken(cookies: Cookies): Result<Payload, Errors> {
-		return useCatch<Payload, Errors>(() => {
-			const token = cookies.get(AUTH_COOKIE);
-			if (token === undefined || token.trim() === "") throw "NOT-SIGNED";
+interface Configuration<P extends Payload, U extends object> {
+  env: {
+    ACCESS_TOKEN: string;
+    ACCESS_TOKEN_EXPIRES_IN: string;
+    ACCESS_COOKIE: string;
+    REFRESH_TOKEN: string;
+    REFRESH_TOKEN_EXPIRES_IN: string;
+    REFRESH_COOKIE: string;
+  }
+  routes: {
+    signIn: string;
+    signUp: string;
+    protected: string[];
+  },
+  findCurrentUser(payload: P): Promise<U | null>;
+  findRefreshVersion(payload: P): Promise<number | null>;
+  getPurePayload(payload: P): P;
+  isPayload(cookie: unknown): cookie is P;
+}
 
-			const payload = JWT.verify(token, ACCESS_TOKEN);
-			if (isValidToken(payload)) return payload;
+function isEmpty(value: string) {
+  return value.trim().length === 0;
+}
 
-			throw "INVALID";
-		});
-	}
+function isRefreshToken(cookie: unknown): cookie is RefreshState {
+  return safeParse(RefreshStateSchema, cookie).success;
+}
 
-	function setAuthCookie(cookies: Cookies, payload: Payload): Payload {
-		const token = createAuthToken(payload);
-		cookies.set(AUTH_COOKIE, token, { httpOnly: true, path: "/" });
-		return payload;
-	}
+interface AuthClient<P extends Payload, U extends object> {
+  bcrypt: {
+    hash(password: string): Promise<string>;
+    compare(password: string, hash: string): Promise<boolean>;
+  },
+  findAuth(cookies: Cookies): Promise<P | null>;
+  findCurrentUser(cookies: Cookies): Promise<Result<U | null>>;
+  getAuth(cookies: Cookies): Promise<P>;
+  handle: Handle;
+  signIn(cookies: Cookies, payload: P, version: number): void;
+  signInRoute: string;
+  signOut(cookies: Cookies): void;
+}
 
-	function isInProtectedRoute(route: string): boolean {
-		return protectedRoutes.some((protectedRoute) => route.startsWith(protectedRoute));
-	}
+function createAuthClient<P extends Payload, U extends object>({
+  env: { ACCESS_TOKEN, ACCESS_TOKEN_EXPIRES_IN, ACCESS_COOKIE, REFRESH_TOKEN, REFRESH_TOKEN_EXPIRES_IN, REFRESH_COOKIE },
+  findCurrentUser,
+  findRefreshVersion,
+  getPurePayload,
+  isPayload,
+  routes: { signIn: signInRoute, signUp: signUpRoute, protected: protectedRoutes }
+}: Configuration<P, U>): AuthClient<P, U> {
 
-	const handle: Handle = ({ event, resolve }) => {
-		const token = findAuthToken(event.cookies);
-		const route = event.route.id;
+  function createAccessCookie(payload: P) {
+    return JWT.sign(payload, ACCESS_TOKEN, { expiresIn: ACCESS_TOKEN_EXPIRES_IN });
+  }
 
-		if (token.failed) {
-			deleteAuthCookie(event.cookies);
-			// @ts-ignore
-			event.locals.auth = null;
+  function createRefreshCookie(payload: RefreshState) {
+    return JWT.sign(payload, REFRESH_TOKEN, { expiresIn: REFRESH_TOKEN_EXPIRES_IN });
+  }
 
-			if (token.error === "NOT-SIGNED") {
-				if (route && isInProtectedRoute(route)) {
-					throw redirect(303, signInRoute);
-				}
+  function setAccessCookie(cookies: Cookies, payload: P) {
+    const token = createAccessCookie(payload);
+    cookies.set(ACCESS_COOKIE, token, {
+      httpOnly: true,
+      secure: true,
+      path: "/"
+    });
+  }
 
-				return resolve(event);
-			}
+  function setRefreshCookie(cookies: Cookies, payload: RefreshState) {
+    const token = createRefreshCookie(payload);
+    cookies.set(REFRESH_COOKIE, token, {
+      httpOnly: true,
+      secure: true,
+      path: "/"
+    });
+  }
 
-			throw redirect(303, signInRoute);
-		} else {
-			// @ts-ignore
-			event.locals.auth = token.data;
+  function deleteAuthCookies(cookies: Cookies) {
+    cookies.set(ACCESS_COOKIE, "", {
+      expires: new Date(Date.now() - 3600),
+      httpOnly: true,
+      path: "/",
+    });
+    cookies.set(REFRESH_COOKIE, "", {
+      expires: new Date(Date.now() - 3600),
+      httpOnly: true,
+      path: "/",
+    });
+  }
 
-			if (route && authRoutes.includes(route)) {
-				throw redirect(303, "/");
-			}
+  function findPayload(cookies: Cookies): PayloadResult<P> {
+    const token = cookies.get(ACCESS_COOKIE);
+    if (isNullish(token) || isEmpty(token)) return { data: null, state: "ANON" };
+    
+    const verified = useCatch(() => JWT.verify(token, ACCESS_TOKEN));
+    
+    if (verified.failed) {
+      if (verified.error instanceof JWT.TokenExpiredError) {
+        const decoded = JWT.decode(token);
+        if (isPayload(decoded)) return { data: decoded, state: "STALE" };
+      }
 
-			return resolve(event);
-		}
-	};
+      deleteAuthCookies(cookies);
+      return { data: null, state: "ANON" };
+    }
+    
+    if (isPayload(verified.data)) return { data: verified.data, state: "FRESH" };
+    
+    deleteAuthCookies(cookies);
+    return { data: null, state: "ANON" };
+  }
 
-	function findCurrentUserFromCookies(cookies: Cookies) {
-		return useAwait<User | null, string>(async () => {
-			const token = findAuthToken(cookies);
-			if (token.failed) throw token.error;
-			const result = await useAwait(() => findCurrentUser(token.data));
-			if (result.failed) throw "FAILED";
-			if (isNullish(result.data)) deleteAuthCookie(cookies);
-			return result.data;
-		});
-	}
+  function findRefresh(cookies: Cookies): number | null {
+    const token = cookies.get(REFRESH_COOKIE);
 
-	async function getCurrentFromCookies(cookies: Cookies) {
-		const user = await findCurrentUserFromCookies(cookies);
-		if (user.failed || isNullish(user.data)) throw redirect(303, signInRoute);
-		return user.data;
-	}
+    if (isNullish(token) || isEmpty(token)) return null;
 
-	async function checkAuthorizationFromCookies(cookies: Cookies, id: string) {
-		const res = await useAwait<boolean, string>(async () => {
-			const token = findAuthToken(cookies);
-			if (token.failed) throw token.error;
-			return checkAuthorization(token.data, id);
-		});
+    const verified = useCatch(() => JWT.verify(token, REFRESH_TOKEN));
 
-		return res.failed ? false : res.data;
-	}
+    if (verified.failed) {
+      deleteAuthCookies(cookies);
+      return null;
+    }
 
-	return {
-		createAuthToken,
-		deleteAuthCookie,
-		findAuthToken,
-		handle,
-		setAuthCookie,
-		signInRoute,
-		getCurrentUser: getCurrentFromCookies,
-		findCurrentUser: findCurrentUserFromCookies,
-		getAuthToken(cookies) {
-			const token = findAuthToken(cookies);
-			if (token.failed) throw redirect(303, signInRoute);
-			return token.data;
-		},
-		can: checkAuthorizationFromCookies,
-		bcrypt: {
-			async hash(password: string) {
-				return BCrypt.hash(password, 10);
-			},
-			async compare(password: string, hash: string) {
-				return BCrypt.compare(password, hash);
-			}
-		}
-	};
+    if (isRefreshToken(verified.data)) {
+      return verified.data.refresh_token_version;
+    }
+
+    deleteAuthCookies(cookies);
+    return null;
+  }
+
+  async function findAuth(cookies: Cookies) {
+    const payload = findPayload(cookies);
+
+    if (payload.state === "ANON") {
+      return null;
+    }
+
+    if (payload.state === "FRESH") {
+      return payload.data;
+    }
+
+    const version = findRefresh(cookies);
+
+    if (isNullish(version)) {
+      deleteAuthCookies(cookies);
+      throw sendToSignIn();
+    }
+
+    const dbVersion = await useAwait(() => findRefreshVersion(payload.data));
+    if (dbVersion.failed) {
+      throw error(500, "Ha ocurrido un error no esperado, intente más tarde.");
+    }
+
+    if (dbVersion.data !== version) {
+      deleteAuthCookies(cookies);
+      throw sendToSignIn();
+    }
+
+    setAccessCookie(cookies, getPurePayload(payload.data));
+    return payload.data;
+  }
+
+  async function getAuth(cookies: Cookies) {
+    const payload = await findAuth(cookies);
+    
+    if (payload) return payload;
+
+    throw sendToSignIn(); 
+  }
+
+  function sendToSignIn() {
+    return redirect(303, signInRoute);
+  }
+
+  const handle: Handle = async ({ event, resolve }) => {
+    const auth = await findAuth(event.cookies);
+    const route = event.route.id;
+
+    if (isNullish(auth)) {
+      if (route && protectedRoutes.includes(route)) {
+        throw sendToSignIn();
+      }
+    }
+
+    if (auth && route === signInRoute || route === signUpRoute) {
+      throw redirect(303, "/");
+    }
+
+    return resolve(event);
+  }
+
+  return {
+    bcrypt: {
+      async hash(password: string) {
+        return BCrypt.hash(password, 10);
+      },
+      async compare(password: string, hash: string) {
+        return BCrypt.compare(password, hash);
+      }
+    },
+    findAuth,
+    findCurrentUser(cookies) {
+      return useAwait(async () => {
+        const auth = await findAuth(cookies);
+        if (auth) return findCurrentUser(auth);
+        return null;
+      });
+    },
+    getAuth,
+    handle,
+    signIn(cookies, payload) {
+      setAccessCookie(cookies, payload);
+      setRefreshCookie(cookies, { id: payload.id, refresh_token_version: 0 });
+    },
+    signInRoute,
+    signOut: (cookies) => deleteAuthCookies(cookies),
+  }
 }
 
 export default createAuthClient;

@@ -19,6 +19,9 @@ module default {
       constraint min_len_value(8);
       constraint max_len_value(64);
     }
+    required refresh_token_version: int64 {
+      default := 0;
+    }
     required created_at: datetime {
       readonly := true;
       rewrite insert using (datetime_of_statement());

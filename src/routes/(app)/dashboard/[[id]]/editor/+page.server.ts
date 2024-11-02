@@ -13,7 +13,7 @@ import { useAPI } from "$lib/api";
 
 export async function load(event) {
   if (event.params.id) {
-    const draft = await findDraft(event.params.id, auth.getAuthToken(event.cookies));
+    const draft = await findDraft(event.params.id, await auth.getAuth(event.cookies));
 
     if (draft.failed) {
       throw error(500, "No ha side posible encontrar borrador, intente más tarde.");
@@ -46,7 +46,7 @@ export async function load(event) {
 
 export const actions = {
   "upload-draft": async (event) => {
-    const currentUser = auth.getAuthToken(event.cookies);
+    const currentUser = await auth.getAuth(event.cookies);
     const form = await superValidate(event, valibot(DraftSchema));
 
     if (form.valid === false) {
@@ -80,7 +80,7 @@ export const actions = {
     throw redirect(303, f("/dashboard/{0}/editor", draft.data.id));
   },
   "upload-picture": async (event) => {
-    const currentUser = auth.getAuthToken(event.cookies);
+    const currentUser = await auth.getAuth(event.cookies);
     const form = await superValidate(event, valibot(PictureSchema));
 
     if (form.valid === false) {
@@ -136,7 +136,7 @@ export const actions = {
     }
   },
   "upload-categories": async (event) => {
-    const currentUser = auth.getAuthToken(event.cookies);
+    const currentUser = await auth.getAuth(event.cookies);
     const form = await superValidate(event, valibot(CategoriesSchema));
 
     if (form.valid === false) {
