@@ -10,7 +10,7 @@
   const entries = getEntriesOf(enumeration);
 </script>
 
-<RadioGroup.Root class="w-fit flex items-center sm:justify-center gap-2" orientation="horizontal" bind:value>
+<RadioGroup.Root class="w-full flex items-center gap-2 sm:(w-fit justify-center)" orientation="horizontal" bind:value>
   {#each entries as [value, label]}
     <RadioGroup.Item class="button button--rectangle-10 button--inverse min-w-max data-[state=checked]:button--background" value={value}>
       <RadioGroup.ItemIndicator asChild let:checked>
