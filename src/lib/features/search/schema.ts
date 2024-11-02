@@ -17,7 +17,6 @@ const SearchRegionSchema = picklist(
 
 const TermSchema = pipe(
   string("Termino debe ser una cadena de texto."),
-  trim(),
   minLength(3, "Termino debe tener al menos 3 caracteres."),
 );
 
