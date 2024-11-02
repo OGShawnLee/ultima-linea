@@ -16,7 +16,6 @@
 	}
 
 	$: recent = takeAndRest(data.page.recent, 1);
-	$: console.log(data.page, recent);
 </script>
 
 <svelte:head>

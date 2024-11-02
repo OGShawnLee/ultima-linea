@@ -7,7 +7,6 @@ export async function load(event) {
   
   if (isRegion(region)) {
     const articles = await getArticlesByRegion(region);
-    console.log(articles, region)
     
     if (articles.failed) {
       throw error(500, "No ha sido posible encontrar articulos por región, intente más tarde.");

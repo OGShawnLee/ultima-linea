@@ -39,7 +39,6 @@ export function getKeysOf<T extends object>(obj: T): (keyof T)[] {
 }
 
 export function takeAndRest<T>(array: T[], n: number): { front: T[], rest: T[] } {
-  console.log(array);
   return { front: array.slice(0, n), rest: array.slice(n) };
 }
 
