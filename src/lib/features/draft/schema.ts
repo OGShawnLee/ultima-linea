@@ -26,7 +26,7 @@ export const DraftFiltersSchema = object({
 export type DraftFiltersData = InferOutput<typeof DraftFiltersSchema>;
 
 export type CardDraft =
-  Pick<Draft, "id" | "title" | "summary" | "region" | "can_be_published" | "is_different_from_article" | "is_published" | "updated_at">
+  Pick<Draft, "id" | "title" | "summary" | "region" | "featured" | "can_be_published" | "is_different_from_article" | "is_published" | "updated_at">
   & { caption: Nullish<CardCaption> }
   & { image: Nullish<CardImage> }
   & { article: { id: string } | null };

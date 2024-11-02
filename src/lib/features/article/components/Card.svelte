@@ -1,6 +1,6 @@
 <script lang="ts">
 	import type { CardArticle } from '@article/schema';
-	import { ArrowRight } from 'lucide-svelte';
+	import { ArrowRight, BadgeCheck } from 'lucide-svelte';
 	import { Badge, Button, Picture, Time } from '@components';
 
 	export let article: CardArticle | undefined = undefined;
@@ -26,7 +26,10 @@
 		<div class="p-6 grid gap-6 md:pt-12 lg:(p-0 content-center)">
 			<header class="contents">
 				<div class="flex items-center gap-4 flex-wrap">
-					<Badge region={article?.region ?? 'NATIONAL'} earth />
+					{#if article && article.featured}
+						<Badge featured />
+					{/if}
+					<Badge region={article?.region ?? 'NATIONAL'} />
 					<Badge badge="Política" />
 				</div>
 				<a class="anchor-hover heading" href={article?.id ? '/article/' + article.id : '/article'}>
@@ -65,7 +68,10 @@
 		>
 			<header class="contents">
 				<div class="flex items-center gap-4 flex-wrap">
-					<Badge region={article?.region ?? 'NATIONAL'} earth />
+					{#if article && article.featured}
+						<Badge featured />
+					{/if}
+					<Badge region={article?.region ?? 'NATIONAL'} />
 					<Badge badge="Política" />
 				</div>
 				<a class="anchor-hover heading" href={article?.id ? '/article/' + article.id : '/article'}>
@@ -92,7 +98,10 @@
 		<div class="p-8 grid gap-6" class:card--background={background} class:rounded-b-xl={background}>
 			<header class="contents">
 				<div class="flex items-center gap-4 flex-wrap">
-					<Badge region={article?.region ?? 'NATIONAL'} earth />
+					{#if article && article.featured}
+						<Badge featured />
+					{/if}
+					<Badge region={article?.region ?? 'NATIONAL'} />
 					<Badge badge="Política" />
 				</div>
 				<a class="anchor-hover heading" href={article?.id ? '/article/' + article.id : '/article'}>
@@ -119,7 +128,10 @@
 		<div class="p-8 grid gap-6" class:card--background={background} class:rounded-b-xl={background}>
 			<header class="contents">
 				<div class="flex items-center gap-4 flex-wrap">
-					<Badge region={article?.region ?? 'NATIONAL'} earth />
+					{#if article && article.featured}
+						<Badge featured />
+					{/if}
+					<Badge region={article?.region ?? 'NATIONAL'} />
 					<Badge badge="Política" />
 				</div>
 				<a class="anchor-hover heading" href={article?.id ? '/article/' + article.id : '/article'}>
@@ -138,7 +150,10 @@
 		<div class="p-8 grid gap-6">
 			<header class="contents">
 				<div class="flex items-center gap-4 flex-wrap">
-					<Badge region={article?.region ?? 'NATIONAL'} earth />
+					{#if article && article.featured}
+						<Badge featured />
+					{/if}
+					<Badge region={article?.region ?? 'NATIONAL'} />
 					<Badge badge="Política" />
 				</div>
 				<a class="anchor-hover heading" href={article?.id ? '/article/' + article.id : '/article'}>

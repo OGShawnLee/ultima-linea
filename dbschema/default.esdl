@@ -85,6 +85,9 @@ module default {
       on source delete delete target;
     };
     region: Region;
+    required featured: bool {
+      default := false;
+    }
     required created_at: datetime {
       readonly := true;
       rewrite insert using (datetime_of_statement());
@@ -159,6 +162,7 @@ module default {
         or .caption.image_label != .article.caption.image_label
         or .caption.image_src != .article.caption.image_src
         or .region != .article.region
+        or .featured != .article.featured
       )
     );
     is_published := (select exists .article);

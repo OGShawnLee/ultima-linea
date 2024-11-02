@@ -35,10 +35,13 @@
 	>
 		{#if draft.region}
 			<div class="flex items-center gap-2">
-				{#if draft.is_published && draft.article}
-					<Badge badge="Publicado" href="/article/{draft.article.id}" icon={CircleCheck} />
+				{#if draft.featured && draft.article}
+					<Badge featured />
 				{/if}
-				<Badge earth region={draft.region} />
+				{#if draft.is_published && draft.article}
+					<Badge href="/article/{draft.article.id}" published />
+				{/if}
+				<Badge region={draft.region} />
 			</div>
 		{/if}
 		<a href="/dashboard/draft/{draft.id}" class="anchor-hover heading">

@@ -37,7 +37,10 @@
 			<article class="xl:col-span-8 grid gap-12">
 				<header class="md:px-16 grid gap-6">
 					<div class="flex items-center gap-4 flex-wrap">
-						<Badge earth region={data.page.article.region} />
+						{#if data.page.article.featured}
+							<Badge featured />
+						{/if}
+						<Badge region={data.page.article.region} />
 						<Badge badge="Política" />
 					</div>
 					<h1 class="heading-1">

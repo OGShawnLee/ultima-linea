@@ -7,6 +7,7 @@ select matches.object {
   image: { image_key, image_url },
   caption: { image_label, image_src },
   region,
+  featured,
   created_at,
   updated_at,
   score := matches.score

@@ -5,7 +5,7 @@
 	import { DraftSchema } from '@draft/schema';
 	import { MAX_IMAGE_LABEL_LENGTH, MIN_IMAGE_LABEL_LENGTH, PictureSchema } from '@picture/schema';
 	import { Button, Dialog, Main, Input, Radio, Uploader, createToast } from '@components';
-	import { Captions, Earth, Image, Save, Shapes, UserCircle, X } from 'lucide-svelte';
+	import { BadgeCheck, Captions, Earth, Image, Save, Shapes, UserCircle, X } from 'lucide-svelte';
 	import { fileProxy, superForm } from 'sveltekit-superforms';
 	import { valibotClient } from 'sveltekit-superforms/adapters';
 	import { Control, Field } from 'formsnap';
@@ -168,6 +168,15 @@
 				<Control let:attrs>
 					<Input.Label label="Región" icon={Earth} id={attrs.name} />
 					<Radio name={attrs.name} bind:value={$inputCategories.region} enumeration={RegionEnumeration} />
+				</Control>
+				<Input.Error />
+			</Input.Group>
+		</Field>
+		<Field form={formCategories} name="featured">
+			<Input.Group>
+				<Control let:attrs>
+					<Input.Label label="Destacado" icon={BadgeCheck} id={attrs.name} />
+					<Input.Checkbox bind:checked={$inputCategories.featured} name="featured" label="Añadir a Avenida Principal"/>
 				</Control>
 				<Input.Error />
 			</Input.Group>

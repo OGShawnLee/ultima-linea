@@ -22,7 +22,7 @@ export async function load(event) {
     if (draft.data) {
       return {
         hasDraft: true,
-        categories: await superValidate({ region: draft.data.region ?? "NATIONAL" }, valibot(CategoriesSchema)),
+        categories: await superValidate({ region: draft.data.region ?? "NATIONAL", featured: draft.data.featured }, valibot(CategoriesSchema)),
         form: await superValidate(draft.data, valibot(DraftSchema)),
         picture: await superValidate({
           "image-label": draft.data.caption?.image_label ?? draft.data.title + ".",

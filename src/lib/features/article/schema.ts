@@ -22,6 +22,6 @@ export const CONSTANTS = {
 };
 
 export type CardArticle =
-  Pick<News, "id" | "title" | "summary" | "region" | "created_at" | "updated_at">
+  Pick<News, "id" | "title" | "summary" | "region" | "featured" | "created_at" | "updated_at">
   & { caption: CardCaption }
   & { image: CardImage };

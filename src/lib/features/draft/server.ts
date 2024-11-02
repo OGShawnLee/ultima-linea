@@ -17,6 +17,7 @@ const CommonDraftShape = e.shape(e.Draft, () => ({
   image: { image_key: true, image_url: true },
   caption: { image_label: true, image_src: true },
   region: true,
+  featured: true,
   can_be_published: true,
   is_different_from_article: true,
   is_published: true,
@@ -26,7 +27,7 @@ const CommonDraftShape = e.shape(e.Draft, () => ({
 export function addDraftCategories(id: string, data: CategoriesData, currentUser: AuthToken) {
   return useAwait(() => (
     e.update(e.Draft, () => ({
-      set: { region: data.region },
+      set: { region: data.region, featured: data.featured },
       filter_single: { id, user: buildUserRelationQuery(currentUser) },
     })).run(getClient())
   ))
@@ -184,6 +185,7 @@ export function publishDraft(id: string, currentUser: AuthToken) {
             image_label: draft.caption.image_label,
             image_src: draft.caption.image_src
           }),
+          featured: draft.featured,
           user: draft.user
         })
       }
@@ -218,7 +220,8 @@ export function updateDraftArticle(id: string, currentUser: AuthToken) {
             image_label: draft.caption.image_label,
             image_src: draft.caption.image_src
           }
-        }))
+        })),
+        featured: draft.featured
       }
     })).run(getClient())
   ))

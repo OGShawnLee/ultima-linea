@@ -11,6 +11,7 @@ const CommonArticleShape = e.shape(e.News, () => ({
   image: { image_key: true, image_url: true },
   caption: { image_label: true, image_src: true },
   region: true,
+  featured: true,
   created_at: true,
   updated_at: true,
 }));

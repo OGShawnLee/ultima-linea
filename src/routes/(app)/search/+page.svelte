@@ -54,7 +54,7 @@
 				</div>
 			</div>
 			<Field {form} name="region">
-				<Input.Group class="overflow-x-auto">
+				<Input.Group class="flex items-center overflow-x-auto">
 					<Control let:attrs>
 						<Input.Label hidden label="Región" id={attrs.name} />
 						<Radio

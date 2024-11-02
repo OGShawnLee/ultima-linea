@@ -1,5 +1,5 @@
 import type { Region } from "@interfaces";
-import { type InferOutput, object, picklist } from "valibot";
+import { type InferOutput, boolean, object, picklist } from "valibot";
 import { getKeysOf } from "$lib";
 
 export const RegionEnumeration: Record<Region, string> = {
@@ -13,9 +13,11 @@ const RegionSchema = picklist(
   getKeysOf(RegionEnumeration),
   "Región debe ser uno de los valores determinados."
 );
+const FeaturedSchema = boolean("Destacado debe ser un valor booleano.");
 
 export const CategoriesSchema = object({
-  region: RegionSchema
+  region: RegionSchema,
+  featured: FeaturedSchema
 });
 
 export type CategoriesData = InferOutput<typeof CategoriesSchema>;
