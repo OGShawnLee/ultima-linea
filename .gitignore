@@ -24,3 +24,4 @@ vite.config.ts.timestamp-*
 dbschema/migrations
 src/lib/edgeql-js
 src/lib/interfaces.ts
+src/lib/queries.ts
