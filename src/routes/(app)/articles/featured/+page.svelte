@@ -6,20 +6,20 @@
 </script>
 
 <svelte:head>
-  <title>Noticias {data.label} - Última Linea</title>
-  <meta name="description" content="Noticias {data.label}" />
-  <meta name="og:title" content="Noticias {data.label}" />
+  <title>Noticias Destacadas - Última Linea</title>
+  <meta name="description" content="Noticias destacadas" />
+  <meta name="og:title" content="Noticias destacadas" />
   <meta name="og:image" content={data.articles[0].image.image_url} />
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Noticias {data.label}" />
-  <meta name="twitter:description" content="Mira las noticias {data.label} en Última Linea." />
+  <meta name="twitter:title" content="Noticias destacadas" />
+  <meta name="twitter:description" content="Mira noticias destacadas en Última Linea." />
   <meta name="twitter:image" content={data.articles[0].image.image_url} />
 </svelte:head>
 
 <Main>
   <section class="container--padding py-12 md:py-16 grid gap-8">
     <Header variant="heading-1">
-      Noticias {data.label}
+      Noticias Destacadas
     </Header>
     <div class="grid gap-8 md:gap-16">
       <Card article={data.articles[0]} variant="hero" />

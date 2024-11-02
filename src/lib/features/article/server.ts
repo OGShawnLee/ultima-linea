@@ -59,6 +59,20 @@ export function getArticles() {
   ));
 }
 
+export function getFeaturedArticles() {
+  return useAwait(() => (
+    e.select(e.News, (article) => ({
+      ...CommonArticleShape(article),
+      limit: 8,
+      order_by: {
+        expression: article.created_at,
+        direction: e.DESC,
+      },
+      filter: e.op(article.featured, "=", true)
+    })).run(getClient())
+  ));
+}
+
 export function getArticlesByRegion(region: Region) {
   return useAwait(() => (
     e.select(e.News, (article) => ({
